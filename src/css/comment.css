@@ -1,0 +1,13 @@
+.comment .actions .icon {
+    margin: 0;
+    padding: 0;
+    font-size: 1.3em;
+}
+
+.comment .actions .icon:first-of-type {
+    margin-right: 10px;
+}
+
+.comment {
+    margin: 0.5em 0;
+}

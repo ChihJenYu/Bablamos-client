@@ -1,0 +1,10 @@
+html,
+body {
+    font-size: 18px;
+    background-color: rgb(245, 245, 245);
+    font-family: 'Source Sans Pro';
+}
+
+.ui.input>input, .ui.menu, h1, h2, h3, h4, h5, .ui.modal>.header, .ui.button {
+    font-family: 'Source Sans Pro' !important;
+}

@@ -1,0 +1,9 @@
+.news-feed {
+    margin-top: 90px;
+}
+
+.news-feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

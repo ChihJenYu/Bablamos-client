@@ -1,0 +1,26 @@
+.left-vertical-menu {
+    position: fixed;
+    padding-left: 2.5em;
+    padding-top: 1.5em;
+}
+
+.vertical .dropdown.icon {
+    color: #000;
+}
+
+.left-vertical-menu .vertical.menu .menu.transition {
+    left: 0 !important;
+    top: 55px !important;
+    width: 100%;
+}
+
+
+.left-vertical-menu .vertical.menu .menu.transition .header {
+    text-align: left !important;
+}
+
+.left-vertical-menu .vertical.menu .pointing.dropdown.link .dropdown.icon {
+    transform: rotate(90deg);
+}
+
+

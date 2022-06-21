@@ -1,0 +1,25 @@
+.input-inline .ui.input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 20rem;
+}
+
+.input-inline .ui.input input {
+    padding: 0.5em 0.8em;
+}
+
+.input-inline .paper.plane.icon {
+    font-size: 1.3em;
+    cursor: pointer;
+    margin-left: 5px;
+    color: #1E90FF;
+}
+
+.input-inline .paper.plane.icon:hover {
+    color: rgb(25, 129, 240)
+}
+
+.input-inline .paper.plane.icon:active {
+    color: rgb(10, 114, 225)
+}

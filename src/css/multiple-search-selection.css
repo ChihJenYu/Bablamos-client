@@ -1,0 +1,30 @@
+.ui.upward.dropdown>.menu {
+    top: 0px !important;
+    bottom: 0px !important;
+}
+
+.multiple.search.selection {
+    min-height: 1em !important;
+    /* max-height: 5em !important; */
+    line-height: 0.5em !important;
+    border-radius: 1.67em;
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 75% !important;
+    /* overflow-y: auto; */
+    /* overflow-x: hidden; */
+    /* height: 80px; */
+}
+
+.ui.selection.active.dropdown .menu {
+    border-radius: 0 0 1.67em 1.67em;
+}
+
+.ui.default.dropdown:not(.button)>.text,
+.ui.dropdown:not(.button)>.default.text {
+    color: rgba(170, 170, 170)
+}
+
+.multiple.search.selection .menu.transition.visible {
+    max-height: 8em;
+    border: none !important;
+}
