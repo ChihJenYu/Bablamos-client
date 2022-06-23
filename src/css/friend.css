@@ -1,0 +1,25 @@
+.friend.item {
+    margin-top: 0.2em !important;
+    margin-bottom: 0.2em !important;
+    /* margin: 0.2em !important; */
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-radius: 4px !important;
+    padding: 0.8em !important;
+}
+
+.friend.item .content {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.friend.item .content::after {
+    content: "" !important;
+    display: none !important;
+}
+
+.friend.item img {
+    border-radius: 50% !important;
+}

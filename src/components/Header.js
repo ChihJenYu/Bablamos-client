@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "../css/header.css";
 
 const Header = ({ username, profile_pic_url }) => {
     return (
         <div className="ui secondary menu header">
             <div className="left menu">
-                <div className="logo item">Bablamos</div>
+                <Link to="/">
+                    <div className="logo item">Bablamos</div>
+                </Link>
                 <div className="search item">
                     <div className="ui icon input">
                         <input type="text" placeholder="Search Bablamos" />
@@ -14,7 +17,9 @@ const Header = ({ username, profile_pic_url }) => {
                 </div>
             </div>
             <div className="item center">
-                <i className="home icon large" />
+                <Link to="/">
+                    <i className="home icon large" />
+                </Link>
             </div>
 
             <div className="right menu">
@@ -25,9 +30,9 @@ const Header = ({ username, profile_pic_url }) => {
                     <i className="bell icon large" />
                 </div>
                 <div className="item">
-                    <a href={`/profile/${username}`} className="profile-link">
+                    <Link to={`/profile/${username}`} className="profile-link">
                         <img alt="profile" src={profile_pic_url} />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
