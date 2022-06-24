@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../css/friends-tab-content.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
@@ -11,10 +11,13 @@ function FriendsTabContent({ profileUser }) {
     const [friendRequestsPaging, setFriendRequestsPaging] = useState(0);
     const tabs = ["All friends", "Friend requests"];
     const [activeTab, setActiveTab] = useState(tabs[0]);
+    const [friendsHasReachedEnd, setFriendsHasReachedEnd] = useState(false);
+    const [requestsHasReachedEnd, setRequestsHasReachedEnd] = useState(false);
 
     const renderedFriends = friends.map((friend) => {
         return (
             <Friend
+                key={friend.id}
                 status="accepted"
                 profile_pic_url={friend.profile_pic_url}
                 username={friend.friend_name}
@@ -25,6 +28,7 @@ function FriendsTabContent({ profileUser }) {
     const renderedFriendRequests = friendRequests.map((req) => {
         return (
             <Friend
+                key={req.id}
                 status="received"
                 profile_pic_url={req.profile_pic_url}
                 username={req.friend_name}
@@ -44,6 +48,10 @@ function FriendsTabContent({ profileUser }) {
             }
         );
         const json = await res.json();
+        if (json.data.length === 0) {
+            setFriendsHasReachedEnd(true);
+            return;
+        }
         setFriendsPaging(friendsPaging + 1);
         setFriends((prev) => [...prev, ...json.data]);
     };
@@ -60,14 +68,13 @@ function FriendsTabContent({ profileUser }) {
             }
         );
         const json = await res.json();
+        if (json.data.length === 0) {
+            setRequestsHasReachedEnd(true);
+            return;
+        }
         setFriendRequestsPaging(friendRequestsPaging + 1);
         setFriendRequests((prev) => [...prev, ...json.data]);
     };
-
-    useEffect(() => {
-        fetchFriends();
-        fetchFriendRequests();
-    }, []);
 
     return (
         <div className="friends-tab-content">
@@ -85,18 +92,20 @@ function FriendsTabContent({ profileUser }) {
                             >
                                 All friends
                             </a>
-                            <a
-                                className={`item ${
-                                    activeTab === "Friend requests"
-                                        ? "active"
-                                        : ""
-                                }`}
-                                onClick={() => {
-                                    setActiveTab("Friend requests");
-                                }}
-                            >
-                                Friend requests
-                            </a>
+                            {profileUser.friend_status === "self" ? (
+                                <a
+                                    className={`item ${
+                                        activeTab === "Friend requests"
+                                            ? "active"
+                                            : ""
+                                    }`}
+                                    onClick={() => {
+                                        setActiveTab("Friend requests");
+                                    }}
+                                >
+                                    Friend requests
+                                </a>
+                            ) : null}
                         </div>
                         <div className="right menu">
                             <div className="search item">
@@ -115,11 +124,14 @@ function FriendsTabContent({ profileUser }) {
                     <InfiniteScroll
                         dataLength={friends.length}
                         next={fetchFriends}
-                        hasMore={true}
+                        hasMore={!friendsHasReachedEnd}
                         loader={<Loader text="Loading" />}
                         endMessage={
-                            <p style={{ textAlign: "center" }}>
-                                <b>Nani (´ﾟдﾟ`) ... You've seen it all!</b>
+                            <p
+                                className="end-message"
+                                style={{ textAlign: "center" }}
+                            >
+                                That's all of 'em!
                             </p>
                         }
                     >
@@ -132,11 +144,14 @@ function FriendsTabContent({ profileUser }) {
                     <InfiniteScroll
                         dataLength={friendRequests.length}
                         next={fetchFriendRequests}
-                        hasMore={true}
+                        hasMore={!requestsHasReachedEnd}
                         loader={<Loader text="Loading" />}
                         endMessage={
-                            <p style={{ textAlign: "center" }}>
-                                <b>Nani (´ﾟдﾟ`) ... You've seen it all!</b>
+                            <p
+                                className="end-message"
+                                style={{ textAlign: "center" }}
+                            >
+                                That's all of 'em!
                             </p>
                         }
                     >

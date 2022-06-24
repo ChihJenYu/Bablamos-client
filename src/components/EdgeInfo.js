@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { Feed } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 function EdgeInfo({
     user_id,
@@ -20,11 +21,15 @@ function EdgeInfo({
         <Feed>
             <Feed.Event>
                 <Feed.Label>
-                    <img src={profile_pic_url} />
+                    <Link to={`/profile/${username}`}>
+                        <img src={profile_pic_url} />
+                    </Link>
                 </Feed.Label>
                 <Feed.Content>
                     <Feed.Summary>
-                        <Feed.User>{username}</Feed.User>
+                        <Link to={`/profile/${username}`}>
+                            <Feed.User>{username}</Feed.User>
+                        </Link>
                         {renderSummary(shared_post_id)}
                         <Feed.Date>
                             {moment.unix(+created_at).fromNow()}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import moment from "moment";
-import { Comment, Icon } from "semantic-ui-react";
 import LikeAction from "./LikeAction";
+import history from "../history";
 import "../css/comment.css";
 
-function CommentComponent({
+function Comment({
     id,
     user_id,
     username,
@@ -18,27 +18,41 @@ function CommentComponent({
     const [hasLiked, setHasLiked] = useState(liked || false);
 
     return (
-        <Comment>
-            <Comment.Avatar as="a" src={profile_pic_url} />
-            <Comment.Content>
-                <Comment.Author as="a">{username}</Comment.Author>
-                <Comment.Metadata>
+        <div className="comment">
+            <a
+                className="avatar"
+                onClick={() => {
+                    history.push(`/profile/${username}`);
+                }}
+            >
+                <img src={profile_pic_url} />
+            </a>
+            <div className="content">
+                <a
+                    onClick={() => {
+                        history.push(`/profile/${username}`);
+                    }}
+                    class="author"
+                >
+                    {username}
+                </a>
+                <div className="metadata">
                     <div className="date">
                         {moment.unix(+created_at).fromNow()}
                     </div>
-                </Comment.Metadata>
-                <Comment.Text>{content}</Comment.Text>
-                <Comment.Actions>
+                </div>
+                <div className="text">{content}</div>
+                <div className="actions">
                     <LikeAction
                         hasLiked={hasLiked}
                         setHasLiked={setHasLiked}
                         edge={{ edge_id: id, edge_type: EDGE_TYPE }}
                     />
-                    <Icon className="comment outline" />
-                </Comment.Actions>
-            </Comment.Content>
-        </Comment>
+                    <i className="comment outline icon" />
+                </div>
+            </div>
+        </div>
     );
 }
 
-export default CommentComponent;
+export default Comment;

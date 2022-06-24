@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InputModal from "./InputModal";
 import TagSelectionModal from "./TagSelectionModal";
 import InputModalPrompt from "./InputModalPrompt";
@@ -6,7 +6,13 @@ import Post from "./Post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 
-function Newsfeed({ profile_pic_url, posts, fetchPosts }) {
+function Newsfeed({
+    profile_pic_url,
+    posts,
+    fetchPosts,
+    hasReachedEnd,
+    endMessage,
+}) {
     const [showInputModal, setShowInputModal] = useState(false);
 
     const renderedPosts = posts.map((post) => {
@@ -45,13 +51,9 @@ function Newsfeed({ profile_pic_url, posts, fetchPosts }) {
             <InfiniteScroll
                 dataLength={posts.length}
                 next={fetchPosts}
-                hasMore={true}
+                hasMore={!hasReachedEnd}
                 loader={<Loader text="Loading" />}
-                endMessage={
-                    <p style={{ textAlign: "center" }}>
-                        <b>Nani (´ﾟдﾟ`) ... You've seen it all!</b>
-                    </p>
-                }
+                endMessage={endMessage}
             >
                 {renderedPosts}
             </InfiniteScroll>

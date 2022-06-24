@@ -12,7 +12,7 @@ const App = () => {
             <Router history={history}>
                 <Switch>
                     <Route path="/welcome" component={User}></Route>
-                    <Route path="/profile" component={UserProfile}></Route>
+                    <Route path="/profile/:username" component={UserProfile}></Route>
                     <Route path="/" component={Homepage}></Route>
                 </Switch>
             </Router>

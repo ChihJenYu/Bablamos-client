@@ -8,6 +8,7 @@ import "../css/semantic.min.css";
 function Homepage() {
     const [posts, setPosts] = useState([]);
     const [postsPaging, setPostsPaging] = useState(0);
+    const [hasReachedEnd, setHasReachedEnd] = useState(false);
     const [user, setUser] = useState({
         user_id: null,
         username: null,
@@ -41,6 +42,10 @@ function Homepage() {
             }
         );
         const json = await res.json();
+        if (json.data.length === 0) {
+            setHasReachedEnd(true);
+            return;
+        }
         setPostsPaging(postsPaging + 1);
         setPosts((prev) => [...prev, ...json.data]);
     };
@@ -62,6 +67,12 @@ function Homepage() {
                     profile_pic_url={user.profile_pic_url}
                     posts={posts}
                     fetchPosts={fetchPosts}
+                    hasReachedEnd={hasReachedEnd}
+                    endMessage={
+                        <p style={{ textAlign: "center", marginBottom: "1em" }}>
+                            <b>Nani (´ﾟдﾟ`) ... You've seen it all!</b>
+                        </p>
+                    }
                 />
             </div>
         </div>

@@ -22,7 +22,8 @@
 }
 
 .icon.input input {
-    border-radius: 2em;
+    border-radius: 1.67em !important;
+    border: none !important;
 }
 
 .icon.input input::placeholder {

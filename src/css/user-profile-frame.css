@@ -68,6 +68,7 @@
     z-index: 1;
     bottom: -120px;
     left: 1.33em;
+    width: calc(100% - 1.33em);
 }
 
 .profile-img {
@@ -103,8 +104,50 @@
 }
 
 .profile-frame-container {
-    width: 1100px;
     height: 500px;
-    margin: auto;
     background-color: #fff;
+    margin-bottom: 5em;
+}
+
+.banner-prompts {
+    position: absolute;
+    right: 1.33em;
+    bottom: 1.8em;
+}
+
+.profile-prompts {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-prompts .button-group, .profile-prompts .button-group .ui.button:not(.icon.dropdown) {
+    margin-left: 1.33em !important;
+}
+
+.banner-prompts .ui.button {
+    padding: 1em;
+    height: 2em !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0px !important;
+}
+
+.banner-prompts .icon.dropdown.button {
+    padding: 0.6em 0.5em !important;
+}
+
+.bablamos-theme .ui.button, .bablamos-theme.button {
+    background-color: rgb(0, 191, 255) !important;
+    color: #fff !important;
+}
+
+.bablamos-theme .ui.button:hover,
+.bablamos-theme.button:hover {
+    background-color: rgb(0, 180, 250) !important;
+}
+
+.bablamos-theme .ui.button:active,
+.bablamos-theme.button:active {
+    background-color: rgb(0, 160, 245) !important;
 }

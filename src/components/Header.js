@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import history from "../history";
 import "../css/header.css";
 
 const Header = ({ username, profile_pic_url }) => {
@@ -30,9 +31,9 @@ const Header = ({ username, profile_pic_url }) => {
                     <i className="bell icon large" />
                 </div>
                 <div className="item">
-                    <Link to={`/profile/${username}`} className="profile-link">
+                    <a className="profile-link" href={`/profile/${username}`}>
                         <img alt="profile" src={profile_pic_url} />
-                    </Link>
+                    </a>
                 </div>
             </div>
         </div>

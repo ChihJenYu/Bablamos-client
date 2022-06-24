@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "../css/post.css";
-import CommentComponent from "./Comment";
+import Comment from "./Comment";
 import EdgeInfo from "./EdgeInfo";
 import InputInline from "./InputInline";
 import LikeAction from "./LikeAction";
@@ -41,7 +41,7 @@ function Post({
 
     const renderedComments = latestComments.map((comment) => {
         return (
-            <CommentComponent
+            <Comment
                 key={comment.id}
                 id={comment.id}
                 user_id={comment.user_id}

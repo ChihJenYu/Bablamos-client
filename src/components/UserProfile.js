@@ -3,9 +3,13 @@ import UserProfileFrame from "./UserProfileFrame";
 import TimelineTabContent from "./TimelineTabContent";
 import FriendsTabContent from "./FriendsTabContent";
 import Header from "./Header";
+import { useParams } from "react-router-dom";
 import "../css/semantic.min.css";
+import "../css/user-profile.css";
+const TABS = ["Timeline", "Friends", "Photos", "Preferences"];
 
 function UserProfile() {
+    const { username: urlUsername } = useParams();
     const [recentFriends, setRecentFriends] = useState([]);
     const [friendCount, setFriendCount] = useState(null);
     const [profileUser, setProfileUser] = useState({
@@ -14,15 +18,14 @@ function UserProfile() {
         profile_pic_url: null,
         user_info: null,
         cover_pic_url: null,
+        friend_status: null,
     });
-    const [userRelationship, setUserRelationship] = useState(null);
     const [user, setUser] = useState({
         user_id: null,
         username: null,
         profile_pic_url: null,
     });
-    const tabs = ["Timeline", "Friends", "Photos", "Preferences"];
-    const [activeTab, setActiveTab] = useState(tabs[0]);
+    const [activeTab, setActiveTab] = useState(TABS[0]);
 
     const fetchUserInfo = async () => {
         const res = await fetch(
@@ -41,7 +44,7 @@ function UserProfile() {
 
     const fetchProfileUserInfo = async () => {
         const res = await fetch(
-            "http://localhost:3000/api/user/info?at=profile",
+            `http://localhost:3000/api/user/info?at=profile&username=${urlUsername}`,
             {
                 headers: {
                     Authorization: window.localStorage.getItem("auth"),
@@ -56,6 +59,7 @@ function UserProfile() {
             profile_pic_url,
             friend_count,
             recent_friends,
+            friend_status,
         } = json;
         setRecentFriends(recent_friends);
         setFriendCount(friend_count);
@@ -64,6 +68,7 @@ function UserProfile() {
             username,
             profile_pic_url,
             user_info,
+            friend_status,
         });
     };
 
@@ -78,27 +83,30 @@ function UserProfile() {
                 username={user.username}
                 profile_pic_url={user.profile_pic_url}
             ></Header>
-            <div className="user-profile-page">
-                <UserProfileFrame
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                    friend_count={friendCount}
-                    username={profileUser.username}
-                    profile_pic_url={profileUser.profile_pic_url}
-                    cover_pic_url={profileUser.cover_pic_url}
-                    user_relationship={userRelationship}
-                />
-                {activeTab === "Timeline" ? (
-                    <TimelineTabContent
-                        user={user}
-                        recentFriends={recentFriends}
-                        friendCount={friendCount}
+            {profileUser.user_id ? (
+                <div className="user-profile-page">
+                    <UserProfileFrame
+                        activeTab={activeTab}
+                        setActiveTab={setActiveTab}
+                        friend_count={friendCount}
+                        user_id={profileUser.user_id}
+                        username={profileUser.username}
+                        profile_pic_url={profileUser.profile_pic_url}
+                        cover_pic_url={profileUser.cover_pic_url}
+                        friend_status={profileUser.friend_status}
                     />
-                ) : null}
-                {activeTab === "Friends" ? (
-                    <FriendsTabContent profileUser={profileUser} />
-                ) : null}
-            </div>
+                    {activeTab === "Timeline" ? (
+                        <TimelineTabContent
+                            profileUser={profileUser}
+                            recentFriends={recentFriends}
+                            friendCount={friendCount}
+                        />
+                    ) : null}
+                    {activeTab === "Friends" ? (
+                        <FriendsTabContent profileUser={profileUser} />
+                    ) : null}
+                </div>
+            ) : null}
         </>
     );
 }
