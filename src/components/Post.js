@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "../css/post.css";
-import CommentComponent from "./Comment";
+import Comment from "./Comment";
 import EdgeInfo from "./EdgeInfo";
 import InputInline from "./InputInline";
 import LikeAction from "./LikeAction";
@@ -33,15 +33,15 @@ function Post({
         return <div key={tag.id}>#{tag.tag_name}</div>;
     });
 
-    let latestCommentsOrdered = latestComments;
+    // let latestCommentsOrdered = latestComments;
 
-    latestCommentsOrdered.sort(
-        (comment1, comment2) => comment1.created_at - comment2.created_at
-    );
+    // latestCommentsOrdered.sort(
+    //     (comment1, comment2) => comment1.created_at - comment2.created_at
+    // );
 
-    const renderedComments = latestCommentsOrdered.map((comment) => {
+    const renderedComments = latestComments.map((comment) => {
         return (
-            <CommentComponent
+            <Comment
                 key={comment.id}
                 id={comment.id}
                 user_id={comment.user_id}

@@ -4,7 +4,7 @@
     position: fixed;
     width: 100vw;
     height: 90px !important;
-    z-index: 1;
+    z-index: 5;
     top: 0px !important;
 }
 
@@ -22,7 +22,8 @@
 }
 
 .icon.input input {
-    border-radius: 2em;
+    border-radius: 1.67em !important;
+    border: none !important;
 }
 
 .icon.input input::placeholder {

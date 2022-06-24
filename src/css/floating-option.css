@@ -1,0 +1,15 @@
+.ui.dropdown .menu.visible {
+    display: block !important;
+}
+
+.ui.dropdown .menu.hidden {
+    display: none;
+}
+
+.profile-prompts .ui.dropdown .menu .item {
+    padding: 1em;
+    height: 2em !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

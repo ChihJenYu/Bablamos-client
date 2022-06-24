@@ -1,7 +1,9 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import Newsfeed from "./components/Newsfeed";
+import Homepage from "./components/Homepage";
 import User from "./components/User";
+import UserProfile from "./components/UserProfile";
+import Main from "./components/Main";
 import history from "./history.js";
 
 const App = () => {
@@ -9,8 +11,9 @@ const App = () => {
         <div>
             <Router history={history}>
                 <Switch>
-                    <Route path="/" exact component={Newsfeed}></Route>
                     <Route path="/welcome" component={User}></Route>
+                    <Route path="/profile/:username" component={UserProfile}></Route>
+                    <Route path="/" component={Homepage}></Route>
                 </Switch>
             </Router>
         </div>

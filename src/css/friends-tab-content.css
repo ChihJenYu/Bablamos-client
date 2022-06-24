@@ -1,0 +1,68 @@
+.tab-content-container.friends-tab {
+    width: 1006px;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    padding: 0.8em 1.5em;
+    background-color: #fff;
+    padding-bottom: 1.5em;
+}
+
+.friends-tab-content {
+    padding: 2em 2em 2em 2em;
+    position: relative;
+    top: 55px;
+    /* margin-left: 50px; */
+    width: 100%;
+    position: relative;
+    top: -2em;
+}
+
+.friends-tab-header::after {
+    content: "" !important;
+    display: none !important;
+}
+
+.ui.items.friends {
+    width: 100% !important;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0px 0.4em;
+}
+
+.friends-tab-content .ui.secondary.pointing.menu .item.active {
+    color: #00BFFF !important;
+    border-color: #00BFFF !important;
+}
+
+.friends-tab-content .ui.secondary.pointing.menu {
+    margin-bottom: 1.5em !important;
+    /* padding-bottom: 0.7em !important; */
+}
+
+.friends-tab-content .ui.secondary.pointing.menu .right.menu {
+    padding-right: 0 !important;
+}
+
+
+.friends-tab-content .search.item {
+    padding-right: 0px !important;
+}
+
+.friends-tab-content .ui.icon.input input {
+    padding: 0.5em !important;
+    padding-left: 0.8em !important;
+    border-radius: 1.67em !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border: none !important;
+    outline: none !important;
+    width: 170px;
+    transition-property: width !important;
+    transition-duration: 1s !important;
+}
+
+.friends-tab-content .ui.icon.input input:focus {
+    /* padding: 300px !important; */
+    /* transition: width 1s !important; */
+    width: 240px;
+}
