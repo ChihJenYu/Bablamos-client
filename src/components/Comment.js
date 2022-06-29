@@ -32,7 +32,7 @@ function Comment({
                     onClick={() => {
                         history.push(`/profile/${username}`);
                     }}
-                    class="author"
+                    className="author"
                 >
                     {username}
                 </a>

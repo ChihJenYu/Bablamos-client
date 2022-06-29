@@ -8,7 +8,7 @@ import "../css/semantic.min.css";
 import "../css/user-profile.css";
 const TABS = ["Timeline", "Friends", "Photos", "Preferences"];
 
-function UserProfile() {
+function UserProfile({ clientSocket, setClientSocket }) {
     const { username: urlUsername } = useParams();
     const [recentFriends, setRecentFriends] = useState([]);
     const [friendCount, setFriendCount] = useState(null);
@@ -19,6 +19,8 @@ function UserProfile() {
         user_info: null,
         cover_pic_url: null,
         friend_status: null,
+        follow_status: null,
+        allow_stranger_follow: null,
     });
     const [user, setUser] = useState({
         user_id: null,
@@ -40,6 +42,11 @@ function UserProfile() {
         );
         const json = await res.json();
         setUser(json.data);
+        if (clientSocket.user_id !== json.data.user_id) {
+            setClientSocket((prev) => {
+                return { ...prev, user_id: json.data.user_id };
+            });
+        }
     };
 
     const fetchProfileUserInfo = async () => {
@@ -60,6 +67,8 @@ function UserProfile() {
             friend_count,
             recent_friends,
             friend_status,
+            follow_status,
+            allow_stranger_follow,
         } = json;
         setRecentFriends(recent_friends);
         setFriendCount(friend_count);
@@ -69,6 +78,8 @@ function UserProfile() {
             profile_pic_url,
             user_info,
             friend_status,
+            follow_status,
+            allow_stranger_follow,
         });
     };
 
@@ -79,21 +90,23 @@ function UserProfile() {
 
     return (
         <>
-            <Header
-                username={user.username}
-                profile_pic_url={user.profile_pic_url}
-            ></Header>
-            {profileUser.user_id ? (
+            {user.user_id && clientSocket.user_id ? (
+                <Header
+                    user_id={user.user_id}
+                    username={user.username}
+                    profile_pic_url={user.profile_pic_url}
+                    clientSocket={clientSocket}
+                    setClientSocket={setClientSocket}
+                ></Header>
+            ) : null}
+            {profileUser.user_id && clientSocket.user_id ? (
                 <div className="user-profile-page">
                     <UserProfileFrame
                         activeTab={activeTab}
                         setActiveTab={setActiveTab}
                         friend_count={friendCount}
-                        user_id={profileUser.user_id}
-                        username={profileUser.username}
-                        profile_pic_url={profileUser.profile_pic_url}
-                        cover_pic_url={profileUser.cover_pic_url}
-                        friend_status={profileUser.friend_status}
+                        profileUser={profileUser}
+                        setProfileUser={setProfileUser}
                     />
                     {activeTab === "Timeline" ? (
                         <TimelineTabContent

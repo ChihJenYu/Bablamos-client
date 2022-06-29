@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../css/floating-option.css";
 
 // dropdownTexts is an array [{ component, option }]
-function FloatingOptions({ defaultComponent, dropdownComponents }) {
+function FloatingOptions({ type, defaultComponent, dropdownComponents }) {
     const ref = useRef();
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -25,18 +25,17 @@ function FloatingOptions({ defaultComponent, dropdownComponents }) {
     }, []);
 
     return (
-        <div ref={ref} className="ui buttons button-group">
-            {defaultComponent}
-            <div
-                className="ui floating dropdown icon button bablamos-theme"
-                onClick={() => {
-                    setMenuOpen(!menuOpen);
-                }}
-            >
-                <i className="dropdown icon"></i>
-                <div className={`menu ${menuOpen ? "visible" : "hidden"}`}>
-                    {dropdownComponents}
-                </div>
+        <div
+            ref={ref}
+            className={`ui floating dropdown icon button ${type}`}
+            onClick={() => {
+                setMenuOpen(!menuOpen);
+            }}
+        >
+            <div className="dropdown-button">{defaultComponent}</div>
+
+            <div className={`menu ${menuOpen ? "visible" : "hidden"}`}>
+                {dropdownComponents}
             </div>
         </div>
     );

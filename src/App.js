@@ -1,19 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import Homepage from "./components/Homepage";
 import User from "./components/User";
 import UserProfile from "./components/UserProfile";
-import Main from "./components/Main";
 import history from "./history.js";
+import { io } from "socket.io-client";
 
 const App = () => {
+    const [clientSocket, setClientSocket] = useState({
+        socket: null,
+        user_id: null,
+    });
+    useEffect(() => {
+        const clientSocket = io("http://localhost:3003");
+        setClientSocket({
+            socket: clientSocket,
+            user_id: null,
+        });
+    }, []);
+
+    useEffect(() => {
+        if (clientSocket.user_id && clientSocket.socket) {
+            clientSocket.socket.emit("login", {
+                user_id: clientSocket.user_id,
+            });
+        }
+    }, [clientSocket]);
+
     return (
         <div>
             <Router history={history}>
                 <Switch>
                     <Route path="/welcome" component={User}></Route>
-                    <Route path="/profile/:username" component={UserProfile}></Route>
-                    <Route path="/" component={Homepage}></Route>
+                    <Route
+                        path="/profile/:username"
+                        exact
+                        render={() => (
+                            <UserProfile
+                                clientSocket={clientSocket}
+                                setClientSocket={setClientSocket}
+                            />
+                        )}
+                    ></Route>
+                    <Route
+                        path="/"
+                        exact
+                        render={() => (
+                            <Homepage
+                                clientSocket={clientSocket}
+                                setClientSocket={setClientSocket}
+                            />
+                        )}
+                    ></Route>
                 </Switch>
             </Router>
         </div>

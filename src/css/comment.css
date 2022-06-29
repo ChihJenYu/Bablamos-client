@@ -11,3 +11,15 @@
 .comment {
     margin: 0.5em 0;
 }
+
+.comment .content .text {
+    margin-bottom: 0px !important;
+}
+
+.comment .actions {
+    line-height: 1 !important;
+}
+
+.comment.outline.icon {
+    margin: 0 !important;
+}

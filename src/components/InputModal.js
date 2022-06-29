@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import MultipleSearchSelection from "./MultipleSearchSelection";
 import "../css/input-modal.css";
 
-const InputModal = ({ visible, setVisible }) => {
+const InputModal = ({ visible, setVisible, clientSocket, setClientSocket }) => {
     const [textAreaValue, setTextAreaValue] = useState("");
     const [atPreview, setAtPreview] = useState(false);
     // dropdownOptions: [{ id, name }]

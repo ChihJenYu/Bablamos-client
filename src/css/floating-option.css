@@ -7,9 +7,68 @@
 }
 
 .profile-prompts .ui.dropdown .menu .item {
-    padding: 1em;
+    /* padding: 1em !important; */
     height: 2em !important;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.bablamos-theme-prompt {
+    background-color: #00BFFF !important;
+    color: #fff !important;
+}
+
+.bablamos-theme-prompt:hover {
+    background-color: rgb(0, 180, 250) !important;
+}
+
+.bablamos-theme-prompt:active {
+    background-color: rgb(0, 160, 245) !important;
+}
+
+.profile-prompts .ui.button.quiet.single {
+    padding: 0 0.8em !important;
+}
+
+.ui.dropdown.button.quiet .dropdown-button, .ui.button.quiet {
+    color: #00BFFF !important;
+    background-color: #fff;
+}
+
+.ui.dropdown.button.quiet .dropdown-button:hover,
+.ui.button.quiet:hover {
+    background-color: rgb(242, 242, 242);
+}
+
+.ui.dropdown.button.quiet .dropdown-button:active,
+.ui.button.quiet:active {
+    background-color: rgb(232, 232, 232);
+}
+
+.profile-prompts .ui.dropdown.button .dropdown-button {
+    width: 100%;
+    height: 100%;
+    padding: 0 0.8em !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+i.dropdown.icon {
+    margin-right: 0 !important;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ui.dropdown .menu {
+    width: max-content !important;
+    min-width: 0 !important;
+    right: 0em !important;
+}
+
+.profile-prompts .ui.dropdown .menu .item {
+    height: 2em !important;
+    padding: 0 0.8em !important;
 }

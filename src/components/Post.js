@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useInView, InView } from "react-intersection-observer";
 import ReactMarkdown from "react-markdown";
 import "../css/post.css";
 import Comment from "./Comment";
@@ -15,16 +16,19 @@ function Post({
     created_at,
     content,
     tags,
+    is_new,
     like_count,
     comment_count,
     latest_comments,
     share_count,
     replier_profile_pic_url,
-    liked,
+    already_liked,
+    setSeenFreshPosts,
+    setSeenPosts,
 }) {
     const EDGE_TYPE = "eventful_edge";
-
-    const [hasLiked, setHasLiked] = useState(liked || false);
+    // const { ref: postVisibility, inView, entry } = useInView({ root: document.querySelector(".index-news-feed"), threshold: 1 });
+    const [hasLiked, setHasLiked] = useState(already_liked || 0);
     const [likeCount, setLikeCount] = useState(like_count);
     const [commentCount, setCommentCount] = useState(comment_count);
     const [latestComments, setLatestComments] = useState(latest_comments);
@@ -32,12 +36,6 @@ function Post({
     const renderedTags = tags.map((tag) => {
         return <div key={tag.id}>#{tag.tag_name}</div>;
     });
-
-    // let latestCommentsOrdered = latestComments;
-
-    // latestCommentsOrdered.sort(
-    //     (comment1, comment2) => comment1.created_at - comment2.created_at
-    // );
 
     const renderedComments = latestComments.map((comment) => {
         return (
@@ -65,16 +63,31 @@ function Post({
                 />
                 <i className="ellipsis horizontal icon"></i>
             </div>
-            <div className="post-preview">
+            <InView
+                as="div"
+                className="post-preview"
+                threshold={1}
+                onChange={(inView) => {
+                    if (inView) {
+                        if (is_new) {
+                            setSeenFreshPosts((prev) => [...prev, id]);
+                        } else {
+                            setSeenPosts((prev) => [...prev, id]);
+                        }
+                    }
+                }}
+                delay={1000}
+            >
                 <ReactMarkdown>{content}</ReactMarkdown>
-            </div>
+            </InView>
+
             <div className="tags">{renderedTags}</div>
             <div className="popularity-cta">
                 <div className="like cta">
                     <LikeAction
                         hasLiked={hasLiked}
                         setHasLiked={setHasLiked}
-                        edge={{ edge_id: id, edge_type: EDGE_TYPE }}
+                        edge={{ post_id: id }}
                         likeCount={likeCount}
                         setLikeCount={setLikeCount}
                     />

@@ -5,7 +5,7 @@ import Newsfeed from "./Newsfeed";
 import "../css/homepage.css";
 import "../css/semantic.min.css";
 
-function Homepage() {
+function Homepage({ clientSocket, setClientSocket }) {
     const [posts, setPosts] = useState([]);
     const [postsPaging, setPostsPaging] = useState(0);
     const [hasReachedEnd, setHasReachedEnd] = useState(false);
@@ -28,6 +28,11 @@ function Homepage() {
         );
         const json = await res.json();
         setUser(json.data);
+        if (clientSocket.user_id !== json.data.user_id) {
+            setClientSocket((prev) => {
+                return { ...prev, user_id: json.data.user_id };
+            });
+        }
     };
 
     const fetchPosts = async () => {
@@ -47,6 +52,7 @@ function Homepage() {
             return;
         }
         setPostsPaging(postsPaging + 1);
+        console.log("Post paging is now ", postsPaging);
         setPosts((prev) => [...prev, ...json.data]);
     };
 
@@ -55,11 +61,14 @@ function Homepage() {
         fetchUserInfo();
     }, []);
 
-    return user.user_id ? (
+    return user.user_id && clientSocket.user_id ? (
         <div>
             <Header
+                user_id={user.user_id}
                 username={user.username}
                 profile_pic_url={user.profile_pic_url}
+                clientSocket={clientSocket}
+                setClientSocket={setClientSocket}
             />
             <VerticalMenu username={user.username} />
             <div className="index-news-feed">
@@ -73,6 +82,9 @@ function Homepage() {
                             <b>Nani (´ﾟдﾟ`) ... You've seen it all!</b>
                         </p>
                     }
+                    type="index"
+                    clientSocket={clientSocket}
+                    setClientSocket={setClientSocket}
                 />
             </div>
         </div>

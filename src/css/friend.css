@@ -5,6 +5,7 @@
     border: 1px solid rgba(0, 0, 0, 0.05) !important;
     border-radius: 4px !important;
     padding: 0.8em !important;
+    height: 6em !important;
 }
 
 .friend.item .content {
@@ -22,4 +23,7 @@
 
 .friend.item img {
     border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
 }
