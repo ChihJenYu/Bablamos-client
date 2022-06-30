@@ -12,14 +12,24 @@ const Header = ({
 }) => {
     const [unreadNotificationCount, setUnreadNotificationCount] = useState([0]);
     const [notifications, setNotifications] = useState([]);
+    const [notificationPaging, setNotificationPaging] = useState(0);
+    const [hasReachedEnd, setHasReachedEnd] = useState(false);
 
     const fetchNotifications = async () => {
-        const res = await fetch("http://localhost:3000/api/notification", {
-            headers: {
-                Authorization: window.localStorage.getItem("auth"),
-            },
-        });
+        const res = await fetch(
+            `http://localhost:3000/api/notification?paging=${notificationPaging}`,
+            {
+                headers: {
+                    Authorization: window.localStorage.getItem("auth"),
+                },
+            }
+        );
         const json = await res.json();
+        if (json.data.length === 0) {
+            setHasReachedEnd(true);
+            return;
+        }
+        setNotificationPaging(notificationPaging + 1);
         setNotifications((prev) => [...prev, ...json.data]);
     };
 
@@ -40,11 +50,13 @@ const Header = ({
         fetchUnreadNotificationCount();
         fetchNotifications();
         clientSocket.socket.on(
-            "display_type_1_notification",
+            "display_notification",
             ({
+                notification_type_id,
                 username,
                 inv_user_id,
                 inv_post_id,
+                inv_comment_id,
                 id,
                 created_at,
                 profile_pic_url,
@@ -52,10 +64,11 @@ const Header = ({
                 setUnreadNotificationCount((prev) => [prev[[0]] + 1]);
                 setNotifications((prev) => [
                     {
-                        notification_type_id: 1,
+                        notification_type_id,
                         inv_user_id,
                         username,
                         inv_post_id,
+                        inv_comment_id,
                         id,
                         created_at,
                         read_by_user: 0,
@@ -94,6 +107,8 @@ const Header = ({
                     </div>
                 </div>
                 <NotificationIndicator
+                    fetchNotifications={fetchNotifications}
+                    hasReachedEnd={hasReachedEnd}
                     unreadNotificationCount={unreadNotificationCount}
                     setUnreadNotificationCount={setUnreadNotificationCount}
                     notifications={notifications}

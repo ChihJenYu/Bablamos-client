@@ -52,7 +52,6 @@ function Homepage({ clientSocket, setClientSocket }) {
             return;
         }
         setPostsPaging(postsPaging + 1);
-        console.log("Post paging is now ", postsPaging);
         setPosts((prev) => [...prev, ...json.data]);
     };
 

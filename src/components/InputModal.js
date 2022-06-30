@@ -6,18 +6,6 @@ import "../css/input-modal.css";
 const InputModal = ({ visible, setVisible, clientSocket, setClientSocket }) => {
     const [textAreaValue, setTextAreaValue] = useState("");
     const [atPreview, setAtPreview] = useState(false);
-    // dropdownOptions: [{ id, name }]
-    const [dropdownOptions, setDropdownOptions] = useState([]);
-    // selectedOptions: [{id, name}]
-    const [selectedOptions, setSelectedOptions] = useState([]);
-
-    const fetchDropdownOptions = async (kw) => {
-        const res = await fetch(`http://localhost:3000/api/tag?kw=${kw}`, {
-            headers: { Authorization: window.localStorage.getItem("auth") },
-        });
-        const { matches } = await res.json();
-        setDropdownOptions(matches);
-    };
 
     const fieldRef = useRef();
 
@@ -35,12 +23,19 @@ const InputModal = ({ visible, setVisible, clientSocket, setClientSocket }) => {
                 id="post-input-textarea"
                 value={textAreaValue}
                 onChange={onTextAreaChange}
+                onKeyDown={onKeyDown}
             ></textarea>
         );
     };
 
     const onTextAreaChange = (e) => {
         setTextAreaValue(e.target.value);
+    };
+
+    const onKeyDown = (e) => {
+        if (e.key === "Enter") {
+            console.log("do validate");
+        }
     };
 
     const onPostSubmit = async () => {

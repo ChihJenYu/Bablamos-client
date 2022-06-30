@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import SingleLine from "./SingleLine";
 import "../css/input-inline.css";
 
 function InputInline({
@@ -7,11 +8,69 @@ function InputInline({
     setCommentCount,
     setLatestComments,
 }) {
+    const users = [
+        {
+            id: "pipilu",
+            display: "皮皮鲁",
+        },
+        {
+            id: "luxixi",
+            display: "鲁西西",
+        },
+        {
+            id: "satoshi1",
+            display: "中本聪",
+        },
+        {
+            id: "satoshi2",
+            display: "サトシ・ナカモト",
+        },
+        {
+            id: "nobi",
+            display: "野比のび太",
+        },
+        {
+            id: "sung",
+            display: "성덕선",
+        },
+        {
+            id: "jesse",
+            display: "Jesse Pinkman",
+        },
+        {
+            id: "gus",
+            display: 'Gustavo "Gus" Fring',
+        },
+        {
+            id: "saul",
+            display: "Saul Goodman",
+        },
+        {
+            id: "hank",
+            display: "Hank Schrader",
+        },
+        {
+            id: "skyler",
+            display: "Skyler White",
+        },
+        {
+            id: "mike",
+            display: "Mike Ehrmantraut",
+        },
+        {
+            id: "lydia",
+            display: "Lydìã Rôdarté-Qüayle",
+        },
+    ];
     const [input, setInput] = useState("");
 
     const onInputChange = (e) => {
         setInput(e.target.value);
     };
+
+    useEffect(() => {
+        console.log(input);
+    }, [input]);
 
     const onSendClick = () => {
         const postComment = async () => {
@@ -46,9 +105,15 @@ function InputInline({
             </a>
             <div className="content">
                 <div className="ui input">
-                    <input type="text" value={input} onChange={onInputChange} />
-                    <i className="paper plane icon" onClick={onSendClick} />
+                    {/* <input type="text" value={input} onChange={onInputChange} /> */}
+
+                    {/* <i className="paper plane icon" onClick={onSendClick} /> */}
                 </div>
+                <SingleLine
+                    value={input}
+                    onChange={onInputChange}
+                    data={users}
+                />
             </div>
         </div>
     );

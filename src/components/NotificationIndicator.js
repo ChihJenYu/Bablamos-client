@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import NotificationTab from "./NotificationTab";
 
-function NotificationIndicator({ unreadNotificationCount, notifications }) {
+function NotificationIndicator({
+    fetchNotifications,
+    hasReachedEnd,
+    unreadNotificationCount,
+    notifications,
+    setUnreadNotificationCount,
+    setNotifications,
+}) {
     const tabRef = useRef();
 
     const [notificationTabOpen, setNotificationTabOpen] = useState(false);
@@ -47,8 +54,10 @@ function NotificationIndicator({ unreadNotificationCount, notifications }) {
                 {notificationTabOpen ? (
                     <NotificationTab
                         notifications={notifications}
-                        notificationTabOpen={notificationTabOpen}
-                        setNotificationTabOpen={setNotificationTabOpen}
+                        setNotifications={setNotifications}
+                        setUnreadNotificationCount={setUnreadNotificationCount}
+                        fetchNotifications={fetchNotifications}
+                        hasReachedEnd={hasReachedEnd}
                     />
                 ) : null}
             </div>
