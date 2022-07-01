@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/friend.css";
 
-function Friend({ status, profile_pic_url, username }) {
+function Friend({ status, profile_pic_url, username, type }) {
     return (
         <div className="item friend">
             <a className="ui tiny image" href={`/profile/${username}`}>
@@ -11,7 +11,9 @@ function Friend({ status, profile_pic_url, username }) {
                 <a className="header" href={`/profile/${username}`}>
                     {username}
                 </a>
-                <i className="ellipsis horizontal icon" />
+                {type !== "search" ? (
+                    <i className="ellipsis horizontal icon" />
+                ) : null}
             </div>
         </div>
     );

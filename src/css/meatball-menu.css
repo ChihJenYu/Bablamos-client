@@ -1,0 +1,37 @@
+.ui.text.menu.meatball {
+    margin-top: 0em !important;
+    height: 10px !important;
+    margin-bottom: 0.6em;
+}
+
+.ui.right.dropdown.item {
+    padding: 0 !important;
+}
+
+.ellipsis.horizontal.icon {
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.icon-wrap {
+    margin-right: 0.4em !important;
+    display: block;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-wrap:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.icon-wrap:active {
+    background-color: #ddd;
+}
+
+.meatball-menu.menu.visible {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px !important;
+}

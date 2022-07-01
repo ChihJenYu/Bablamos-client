@@ -4,7 +4,7 @@ import TimelineRecentFriends from "./TimelineRecentFriends";
 import Newsfeed from "./Newsfeed";
 import "../css/timeline-tab-content.css";
 
-function TimelineTabContent({ profileUser, recentFriends, friendCount }) {
+function TimelineTabContent({ user, profileUser, recentFriends, friendCount }) {
     const [posts, setPosts] = useState([]);
     const [postsPaging, setPostsPaging] = useState(0);
     const [hasReachedEnd, setHasReachedEnd] = useState(false);
@@ -48,6 +48,7 @@ function TimelineTabContent({ profileUser, recentFriends, friendCount }) {
             <div className="profile-news-feed-container">
                 <div className="profile-news-feed">
                     <Newsfeed
+                        user_id={user.user_id}
                         profile_pic_url={profileUser.profile_pic_url}
                         posts={posts}
                         fetchPosts={fetchPosts}

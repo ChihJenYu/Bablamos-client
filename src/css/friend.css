@@ -8,6 +8,16 @@
     height: 6em !important;
 }
 
+.search-result.item .friend.item {
+    margin-top: 0em !important;
+    margin-bottom: 0em !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 0em !important;
+    height: auto !important;
+    width: 100%;
+}
+
 .friend.item .content {
     width: 100% !important;
     display: flex !important;
@@ -26,4 +36,13 @@
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
+}
+
+.search-result.item .friend.item img {
+    width: 3rem !important;
+    height: 3rem !important;
+}
+
+.search-result.item .content {
+    margin-left: 0.4em !important;
 }

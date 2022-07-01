@@ -72,6 +72,7 @@ function Homepage({ clientSocket, setClientSocket }) {
             <VerticalMenu username={user.username} />
             <div className="index-news-feed">
                 <Newsfeed
+                    user_id={user.user_id}
                     profile_pic_url={user.profile_pic_url}
                     posts={posts}
                     fetchPosts={fetchPosts}

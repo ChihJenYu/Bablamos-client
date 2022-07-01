@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/header.css";
+import SearchDropdownRound from "./SearchDropdownRound";
 import NotificationTab from "./NotificationTab";
 import NotificationIndicator from "./NotificationIndicator";
 
@@ -46,6 +47,16 @@ const Header = ({
         setUnreadNotificationCount((prev) => [json.unread_count]);
     };
 
+    const fetchUsers = async (kw) => {
+        const res = await fetch(`http://localhost:3000/api/user?kw=${kw}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("auth"),
+            },
+        });
+        const json = await res.json();
+        return json.data;
+    };
+
     useEffect(() => {
         fetchUnreadNotificationCount();
         fetchNotifications();
@@ -87,10 +98,7 @@ const Header = ({
                     <div className="logo item">Bablamos</div>
                 </Link>
                 <div className="search item">
-                    <div className="ui icon input">
-                        <input type="text" placeholder="Search Bablamos" />
-                        <i className="search link icon"></i>
-                    </div>
+                    <SearchDropdownRound fetch={fetchUsers} />
                 </div>
             </div>
             <div className="item center">

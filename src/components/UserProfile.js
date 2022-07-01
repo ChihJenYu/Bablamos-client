@@ -110,6 +110,7 @@ function UserProfile({ clientSocket, setClientSocket }) {
                     />
                     {activeTab === "Timeline" ? (
                         <TimelineTabContent
+                            user={user}
                             profileUser={profileUser}
                             recentFriends={recentFriends}
                             friendCount={friendCount}

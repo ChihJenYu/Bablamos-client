@@ -8,6 +8,7 @@ import Loader from "./Loader";
 import { uniq } from "lodash-es";
 
 function Newsfeed({
+    user_id,
     profile_pic_url,
     posts,
     fetchPosts,
@@ -86,6 +87,7 @@ function Newsfeed({
                 comment_count={post.comment_count}
                 latest_comments={post.latest_comments}
                 share_count={post.share_count}
+                replier_user_id={user_id}
                 replier_profile_pic_url={profile_pic_url}
                 audience_type={post.audience_type}
                 mentioned_users={post.mentioned_users}

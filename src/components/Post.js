@@ -7,6 +7,7 @@ import EdgeInfo from "./EdgeInfo";
 import InputInline from "./InputInline";
 import LikeAction from "./LikeAction";
 import CommentAction from "./CommentAction";
+import MeatballMenu from "./MeatballMenu";
 function Post({
     id,
     user_id,
@@ -21,13 +22,12 @@ function Post({
     comment_count,
     latest_comments,
     share_count,
+    replier_user_id,
     replier_profile_pic_url,
     already_liked,
     setSeenFreshPosts,
     setSeenPosts,
 }) {
-    const EDGE_TYPE = "eventful_edge";
-    // const { ref: postVisibility, inView, entry } = useInView({ root: document.querySelector(".index-news-feed"), threshold: 1 });
     const [hasLiked, setHasLiked] = useState(already_liked || 0);
     const [likeCount, setLikeCount] = useState(like_count);
     const [commentCount, setCommentCount] = useState(comment_count);
@@ -61,19 +61,22 @@ function Post({
                     shared_post_id={shared_post_id}
                     created_at={created_at}
                 />
-                <i className="ellipsis horizontal icon"></i>
+                <MeatballMenu
+                    replier_user_id={replier_user_id}
+                    user_id={user_id}
+                    username={username}
+                />
             </div>
             <InView
                 as="div"
                 className="post-preview"
                 threshold={1}
                 onChange={(inView) => {
-                    if (inView) {
-                        if (is_new) {
-                            setSeenFreshPosts((prev) => [...prev, id]);
-                        } else {
-                            setSeenPosts((prev) => [...prev, id]);
-                        }
+                    if (!inView) return;
+                    if (is_new) {
+                        setSeenFreshPosts((prev) => [...prev, id]);
+                    } else {
+                        setSeenPosts((prev) => [...prev, id]);
                     }
                 }}
                 delay={1000}
