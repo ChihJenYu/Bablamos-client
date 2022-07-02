@@ -30,6 +30,8 @@ function SingleLine({ value, onChange }) {
                 singleLine
                 value={value}
                 onChange={onChange}
+                allowSpaceInQuery={true}
+                allowSuggestionsAboveCursor={true}
             >
                 <Mention
                     data={searchFriends}
