@@ -26,6 +26,10 @@
     color: #666;
 }
 
+.index-news-feed.detail {
+    padding-top: 1.5em !important;
+}
+
 .tags {
     display: flex;
     width: 100%;
@@ -92,4 +96,8 @@ a.user {
 
 .post .post-head .ui.feed {
     margin-bottom: 0.6em !important;
+}
+
+.index-news-feed.detail .infinite-scroll-component {
+    overflow: initial !important;
 }

@@ -1,5 +1,4 @@
 .search-results {
-    background-color: #fff;
     width: 100%;
     margin-left: 0px !important;
     padding-left: 0px !important;
@@ -7,6 +6,7 @@
     border-bottom-right-radius: 1.2em;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 3px !important;
     /* border-top: none; */
+    background-color: #fff !important;
 }
 
 .search-result.item {
@@ -19,8 +19,28 @@
     padding-right: 20px !important;
 }
 
+.search-result.item:hover {
+    background-color: #eee !important;
+}
+
+.search-result.item:active {
+    background-color: #ddd !important;
+}
+
 .search-result.item .item.friend {
     margin: 0px !important;
+}
+
+.ui.secondary.menu .item.search-result {
+    border-radius: 0 !important;
+}
+
+.ui.secondary.menu .item.search-result:last-of-type {
+    border-radius: 0 0 1.5em 1.5em !important;
+}
+
+.ui.secondary.menu .item.search-result:last-of-type {
+    border-radius: 0 0 1.5em 1.5em !important;
 }
 
 .ui.icon.input input.round-top {

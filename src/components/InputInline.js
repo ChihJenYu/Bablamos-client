@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SingleLine from "./SingleLine";
+import parseMention from "../utils/parse-mention";
 import "../css/input-inline.css";
 
 function InputInline({
@@ -8,73 +9,15 @@ function InputInline({
     setCommentCount,
     setLatestComments,
 }) {
-    const users = [
-        {
-            id: "pipilu",
-            display: "皮皮鲁",
-        },
-        {
-            id: "luxixi",
-            display: "鲁西西",
-        },
-        {
-            id: "satoshi1",
-            display: "中本聪",
-        },
-        {
-            id: "satoshi2",
-            display: "サトシ・ナカモト",
-        },
-        {
-            id: "nobi",
-            display: "野比のび太",
-        },
-        {
-            id: "sung",
-            display: "성덕선",
-        },
-        {
-            id: "jesse",
-            display: "Jesse Pinkman",
-        },
-        {
-            id: "gus",
-            display: 'Gustavo "Gus" Fring',
-        },
-        {
-            id: "saul",
-            display: "Saul Goodman",
-        },
-        {
-            id: "hank",
-            display: "Hank Schrader",
-        },
-        {
-            id: "skyler",
-            display: "Skyler White",
-        },
-        {
-            id: "mike",
-            display: "Mike Ehrmantraut",
-        },
-        {
-            id: "lydia",
-            display: "Lydìã Rôdarté-Qüayle",
-        },
-    ];
     const [input, setInput] = useState("");
 
     const onInputChange = (e) => {
         setInput(e.target.value);
     };
-
-    useEffect(() => {
-        console.log(input);
-    }, [input]);
-
     const onSendClick = () => {
         const postComment = async () => {
             setInput("");
+            const { mentionedUsers } = parseMention(input);
             const res = await fetch(
                 `http://localhost:3000/api/comment?post-id=${postId}`,
                 {
@@ -86,6 +29,7 @@ function InputInline({
                     body: JSON.stringify({
                         content: input,
                         level: 1,
+                        mentioned_users: mentionedUsers.map((user) => user.id),
                     }),
                 }
             );
@@ -104,17 +48,9 @@ function InputInline({
                 <img alt="profile" src={profile_pic_url} />
             </a>
             <div className="content">
-                <div className="ui input">
-                    {/* <input type="text" value={input} onChange={onInputChange} /> */}
-
-                    {/* <i className="paper plane icon" onClick={onSendClick} /> */}
-                </div>
-                <SingleLine
-                    value={input}
-                    onChange={onInputChange}
-                    data={users}
-                />
+                <SingleLine value={input} onChange={onInputChange} />
             </div>
+            <i className="paper plane icon" onClick={onSendClick} />
         </div>
     );
 }

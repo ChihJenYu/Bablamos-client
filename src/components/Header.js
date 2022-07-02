@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/header.css";
 import SearchDropdownRound from "./SearchDropdownRound";
-import NotificationTab from "./NotificationTab";
 import NotificationIndicator from "./NotificationIndicator";
 
 const Header = ({
@@ -10,6 +9,8 @@ const Header = ({
     profile_pic_url,
     clientSocket,
     setClientSocket,
+    profileUser,
+    setProfileUser,
 }) => {
     const [unreadNotificationCount, setUnreadNotificationCount] = useState([0]);
     const [notifications, setNotifications] = useState([]);
@@ -87,6 +88,23 @@ const Header = ({
                     },
                     ...prev,
                 ]);
+                if (!profileUser || profileUser.user_id !== inv_user_id) {
+                    return;
+                }
+                if (notification_type_id === 5) {
+                    setProfileUser((prev) => ({
+                        ...prev,
+                        friend_status: "received",
+                    }));
+                    return;
+                }
+                if (notification_type_id === 6) {
+                    setProfileUser((prev) => ({
+                        ...prev,
+                        friend_status: "accepted",
+                    }));
+                    return;
+                }
             }
         );
     }, []);

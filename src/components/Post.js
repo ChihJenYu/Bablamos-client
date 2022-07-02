@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useInView, InView } from "react-intersection-observer";
+import React, { useState } from "react";
+import { InView } from "react-intersection-observer";
 import ReactMarkdown from "react-markdown";
 import "../css/post.css";
 import Comment from "./Comment";
@@ -27,6 +27,7 @@ function Post({
     already_liked,
     setSeenFreshPosts,
     setSeenPosts,
+    type,
 }) {
     const [hasLiked, setHasLiked] = useState(already_liked || 0);
     const [likeCount, setLikeCount] = useState(like_count);

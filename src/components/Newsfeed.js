@@ -82,7 +82,7 @@ function Newsfeed({
                 created_at={post.created_at}
                 content={post.content}
                 tags={post.tags}
-                is_new={post.is_new} // undefined at profile newsfeed
+                is_new={post.is_new}
                 like_count={post.like_count}
                 comment_count={post.comment_count}
                 latest_comments={post.latest_comments}
@@ -97,21 +97,27 @@ function Newsfeed({
                 setSeenPosts={setSeenPosts}
                 clientSocket={clientSocket}
                 setClientSocket={setClientSocket}
+                type={type}
             />
         );
     });
 
     return (
         <>
-            <InputModalPrompt setVisible={setShowInputModal} />
-            {showInputModal ? (
-                <InputModal
-                    visible={showInputModal}
-                    setVisible={setShowInputModal}
-                    clientSocket={clientSocket}
-                    setClientSocket={setClientSocket}
-                />
+            {type !== "detail" ? (
+                <>
+                    <InputModalPrompt setVisible={setShowInputModal} />
+                    {showInputModal ? (
+                        <InputModal
+                            visible={showInputModal}
+                            setVisible={setShowInputModal}
+                            clientSocket={clientSocket}
+                            setClientSocket={setClientSocket}
+                        />
+                    ) : null}
+                </>
             ) : null}
+
             <InfiniteScroll
                 dataLength={posts.length}
                 next={fetchPosts}

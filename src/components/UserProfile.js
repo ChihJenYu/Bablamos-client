@@ -85,18 +85,23 @@ function UserProfile({ clientSocket, setClientSocket }) {
 
     useEffect(() => {
         fetchUserInfo();
-        fetchProfileUserInfo();
     }, []);
+
+    useEffect(() => {
+        fetchProfileUserInfo();
+    }, [profileUser]);
 
     return (
         <>
-            {user.user_id && clientSocket.user_id ? (
+            {user.user_id && clientSocket.user_id && profileUser.user_id ? (
                 <Header
                     user_id={user.user_id}
                     username={user.username}
                     profile_pic_url={user.profile_pic_url}
                     clientSocket={clientSocket}
                     setClientSocket={setClientSocket}
+                    profileUser={profileUser}
+                    setProfileUser={setProfileUser}
                 ></Header>
             ) : null}
             {profileUser.user_id && clientSocket.user_id ? (

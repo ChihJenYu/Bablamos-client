@@ -3,6 +3,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import Homepage from "./components/Homepage";
 import User from "./components/User";
 import UserProfile from "./components/UserProfile";
+import PostDetail from "./components/PostDetail";
 import history from "./history.js";
 import { io } from "socket.io-client";
 
@@ -37,6 +38,16 @@ const App = () => {
                         exact
                         render={() => (
                             <UserProfile
+                                clientSocket={clientSocket}
+                                setClientSocket={setClientSocket}
+                            />
+                        )}
+                    ></Route>
+                    <Route
+                        path="/post/:postId"
+                        exact
+                        render={() => (
+                            <PostDetail
                                 clientSocket={clientSocket}
                                 setClientSocket={setClientSocket}
                             />

@@ -14,9 +14,6 @@ function MentionInput({
 
     const onChange = (e) => {
         onValueChange(e);
-        // if (suggestFriendOpen) {
-        //     setSuggestFriendTerm((prev) => prev + e.nativeEvent.data);
-        // }
     };
 
     const onKeyDown = (e) => {
@@ -59,9 +56,6 @@ function MentionInput({
     };
 
     useEffect(() => {
-        // if (suggestFriendTerm !== "" || suggestFriendTerm !== "@") {
-        //     searchFriends();
-        // }
         console.log(suggestFriendTerm);
     }, [suggestFriendTerm]);
 

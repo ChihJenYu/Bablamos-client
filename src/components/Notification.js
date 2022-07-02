@@ -1,26 +1,63 @@
-import React, { useState } from "react";
+import React from "react";
 import moment from "moment";
+import history from "../history";
 
 function Notification({
     notification,
     setUnreadNotificationCount,
     setNotifications,
 }) {
-    const renderNotificationSummary = (type) => {
-        if (type === 1) {
+    const renderNotificationSummary = () => {
+        if (notification.notification_type_id === 1) {
             return " has a new post.";
         }
-        if (type === 2) {
+        if (notification.notification_type_id === 2) {
             return " commented on your post.";
         }
-        if (type === 4) {
+        if (notification.notification_type_id === 3) {
+            return " mentioned you in a comment.";
+        }
+        if (notification.notification_type_id === 4) {
             return " is now your follower.";
         }
-        if (type === 5) {
+        if (notification.notification_type_id === 5) {
             return " sent you a friend request.";
         }
-        if (type === 6) {
+        if (notification.notification_type_id === 6) {
             return " is now your friend.";
+        }
+    };
+
+    const notificationReditect = () => {
+        if (notification.notification_type_id === 1) {
+            return () => {
+                history.push(`/post/${notification.inv_post_id}`);
+            };
+        }
+        if (notification.notification_type_id === 2) {
+            return () => {
+                history.push(`/post/${notification.inv_post_id}`);
+            };
+        }
+        if (notification.notification_type_id === 3) {
+            return () => {
+                history.push(`/post/${notification.inv_post_id}`);
+            };
+        }
+        if (notification.notification_type_id === 4) {
+            return () => {
+                history.push(`/profile/${notification.username}`);
+            };
+        }
+        if (notification.notification_type_id === 5) {
+            return () => {
+                history.push(`/profile/${notification.username}`);
+            };
+        }
+        if (notification.notification_type_id === 6) {
+            return () => {
+                history.push(`/profile/${notification.username}`);
+            };
         }
     };
 
@@ -47,6 +84,7 @@ function Notification({
                 })
             );
         }
+        notificationReditect()();
     };
 
     return (
@@ -68,11 +106,7 @@ function Notification({
                             >
                                 {notification.username}
                             </a>
-                            <span>
-                                {renderNotificationSummary(
-                                    notification.notification_type_id
-                                )}
-                            </span>
+                            <span>{renderNotificationSummary()}</span>
                         </div>
                         <div className="date">
                             {moment.unix(+notification.created_at).fromNow()}

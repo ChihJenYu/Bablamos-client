@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment";
 import LikeAction from "./LikeAction";
+import MentionRender from "./MentionRender";
 import history from "../history";
 import "../css/comment.css";
 
@@ -41,7 +42,9 @@ function Comment({
                         {moment.unix(+created_at).fromNow()}
                     </div>
                 </div>
-                <div className="text">{content}</div>
+                <div className="text">
+                    <MentionRender comment={content} />
+                </div>
                 <div className="actions">
                     <LikeAction
                         hasLiked={hasLiked}

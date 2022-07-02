@@ -23,3 +23,7 @@
 .comment.outline.icon {
     margin: 0 !important;
 }
+
+.mentioned.user {
+    font-weight: bold;
+}

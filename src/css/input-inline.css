@@ -1,18 +1,23 @@
-.input-inline .ui.input {
+.input-inline {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 20rem;
+    width: 100%;
+    justify-content: flex-start;
 }
 
-.input-inline .ui.input input {
-    padding: 0.5em 0.8em;
+.input-inline .content {
+    margin-left: 1em !important;
+}
+
+.input-inline .content {
+    width: 80%;
 }
 
 .input-inline .paper.plane.icon {
     font-size: 1.3em;
     cursor: pointer;
-    margin-left: 5px;
+    margin-left: 0.4em;
     color: #1E90FF;
 }
 
