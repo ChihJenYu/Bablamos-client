@@ -39,7 +39,11 @@ function NotificationTab({
                     next={fetchNotifications}
                     hasMore={!hasReachedEnd}
                     loader={<Loader text="Loading" />}
-                    endMessage={<p className="end-message">That's all!</p>}
+                    endMessage={
+                        notifications.length !== 0 ? (
+                            <p className="end-message">That's all!</p>
+                        ) : null
+                    }
                     scrollableTarget="notification-scroll"
                 >
                     {renderNotifications()}

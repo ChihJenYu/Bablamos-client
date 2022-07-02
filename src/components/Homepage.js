@@ -75,6 +75,7 @@ function Homepage({ clientSocket, setClientSocket }) {
                     user_id={user.user_id}
                     profile_pic_url={user.profile_pic_url}
                     posts={posts}
+                    setPosts={setPosts}
                     fetchPosts={fetchPosts}
                     hasReachedEnd={hasReachedEnd}
                     endMessage={

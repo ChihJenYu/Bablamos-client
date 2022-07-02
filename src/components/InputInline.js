@@ -8,15 +8,19 @@ function InputInline({
     profile_pic_url,
     setCommentCount,
     setLatestComments,
+    input,
+    setInput,
 }) {
-    const [input, setInput] = useState("");
+    // const [input, setInput] = useState("@[Carl](522)");
 
     const onInputChange = (e) => {
         setInput(e.target.value);
     };
     const onSendClick = () => {
         const postComment = async () => {
-            setInput("");
+            if (input === "") {
+                return;
+            }
             const { mentionedUsers } = parseMention(input);
             const res = await fetch(
                 `http://localhost:3000/api/comment?post-id=${postId}`,
@@ -38,6 +42,7 @@ function InputInline({
             const json = await res.json();
             setCommentCount((prev) => prev + 1);
             setLatestComments((prev) => [...prev, { ...json, content: input }]);
+            setInput("");
         };
         postComment();
     };

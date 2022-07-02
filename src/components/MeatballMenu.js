@@ -1,7 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../css/meatball-menu.css";
 
-function MeatballMenu({ replier_user_id, user_id, username }) {
+function MeatballMenu({
+    replier_user_id,
+    user_id,
+    post_id,
+    username,
+    setShowInputModal,
+    textAreaValue,
+    setTextAreaValue,
+    content,
+    setInputModalType,
+}) {
     const [meatballOpen, setMeatballOpen] = useState(false);
     const ref = useRef();
     useEffect(() => {
@@ -26,8 +36,31 @@ function MeatballMenu({ replier_user_id, user_id, username }) {
         if (replier_user_id === user_id) {
             return (
                 <>
-                    <div className="item">Edit post</div>
-                    <div className="item">Delete post</div>
+                    <div
+                        className="item"
+                        onClick={() => {
+                            setShowInputModal(true);
+                            setTextAreaValue(content);
+                            setInputModalType({
+                                heading: "Edit Post",
+                                post_id,
+                            });
+                        }}
+                    >
+                        Edit post
+                    </div>
+                    <div
+                        className="item"
+                        onClick={() => {
+                            setShowInputModal(true);
+                            setInputModalType({
+                                heading: "Delete Post",
+                                post_id,
+                            });
+                        }}
+                    >
+                        Delete post
+                    </div>
                 </>
             );
         }

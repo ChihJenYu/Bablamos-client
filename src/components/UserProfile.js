@@ -70,17 +70,19 @@ function UserProfile({ clientSocket, setClientSocket }) {
             follow_status,
             allow_stranger_follow,
         } = json;
-        setRecentFriends(recent_friends);
-        setFriendCount(friend_count);
-        setProfileUser({
-            user_id,
-            username,
-            profile_pic_url,
-            user_info,
-            friend_status,
-            follow_status,
-            allow_stranger_follow,
-        });
+        if (profileUser.user_id !== user_id) {
+            setRecentFriends(recent_friends);
+            setFriendCount(friend_count);
+            setProfileUser({
+                user_id,
+                username,
+                profile_pic_url,
+                user_info,
+                friend_status,
+                follow_status,
+                allow_stranger_follow,
+            });
+        }
     };
 
     useEffect(() => {

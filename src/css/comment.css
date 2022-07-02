@@ -5,7 +5,7 @@
 }
 
 .comment .actions .icon:first-of-type {
-    margin-right: 10px;
+    margin-right: 0.25em;
 }
 
 .comment {
@@ -26,4 +26,23 @@
 
 .mentioned.user {
     font-weight: bold;
+}
+
+.ui.comments .comment .actions {
+    display: flex;
+    margin-top: 0.5em !important;
+    align-items: center !important;
+}
+
+.ui.comments .comment.outline.icon {
+    padding: 0em !important;
+    line-height: 1;
+}
+
+.ui.comments .comment .comment-like-cta * {
+    font-size: 1.3em !important;
+}
+
+.ui.comments .comment .comment-like-cta {
+    width: 4.5em;
 }

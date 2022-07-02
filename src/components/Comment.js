@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import moment from "moment";
 import LikeAction from "./LikeAction";
 import MentionRender from "./MentionRender";
@@ -12,11 +12,23 @@ function Comment({
     profile_pic_url,
     content,
     created_at,
-    liked,
+    already_liked,
+    like_count,
+    setInput,
 }) {
-    const EDGE_TYPE = "comment";
+    const commentRef = useRef();
+    const [hasLiked, setHasLiked] = useState(already_liked || 0);
+    const [likeCount, setLikeCount] = useState(like_count || 0);
 
-    const [hasLiked, setHasLiked] = useState(liked || false);
+    const onCommentIconClick = () => {
+        const inputField =
+            commentRef.current.parentElement.parentElement.parentElement.parentElement.querySelector(
+                ".input-inline .content .single-line_mentions__control__hegso input"
+            );
+
+        inputField.focus();
+        setInput(`@[${username}](${user_id})`);
+    };
 
     return (
         <div className="comment">
@@ -46,12 +58,22 @@ function Comment({
                     <MentionRender comment={content} />
                 </div>
                 <div className="actions">
-                    <LikeAction
-                        hasLiked={hasLiked}
-                        setHasLiked={setHasLiked}
-                        edge={{ edge_id: id, edge_type: EDGE_TYPE }}
+                    <div className="comment-like-cta">
+                        <LikeAction
+                            hasLiked={hasLiked}
+                            setHasLiked={setHasLiked}
+                            edge={{ comment_id: id }}
+                            likeCount={likeCount}
+                            setLikeCount={setLikeCount}
+                            type="comment"
+                        />
+                    </div>
+
+                    <i
+                        ref={commentRef}
+                        onClick={onCommentIconClick}
+                        className="comment outline icon"
                     />
-                    <i className="comment outline icon" />
                 </div>
             </div>
         </div>

@@ -28,29 +28,43 @@ function Post({
     setSeenFreshPosts,
     setSeenPosts,
     type,
+    setShowInputModal,
+    textAreaValue,
+    setTextAreaValue,
+    setInputModalType,
 }) {
     const [hasLiked, setHasLiked] = useState(already_liked || 0);
     const [likeCount, setLikeCount] = useState(like_count);
     const [commentCount, setCommentCount] = useState(comment_count);
     const [latestComments, setLatestComments] = useState(latest_comments);
+    const [inputInline, setInputInline] = useState("");
 
     const renderedTags = tags.map((tag) => {
         return <div key={tag.id}>#{tag.tag_name}</div>;
     });
 
-    const renderedComments = latestComments.map((comment) => {
-        return (
-            <Comment
-                key={comment.id}
-                id={comment.id}
-                user_id={comment.user_id}
-                username={comment.username}
-                profile_pic_url={comment.profile_pic_url}
-                content={comment.content}
-                created_at={comment.created_at}
-            />
-        );
-    });
+    const renderedComments = latestComments
+        .sort((c1, c2) => c1.created_at - c2.created_at)
+        .map((comment) => {
+            console.log("From post: ", {
+                id: comment.id,
+                already_liked: comment.already_liked,
+            });
+            return (
+                <Comment
+                    key={comment.id}
+                    id={comment.id}
+                    user_id={comment.user_id}
+                    username={comment.username}
+                    already_liked={comment.already_liked}
+                    like_count={+comment.like_count}
+                    profile_pic_url={comment.profile_pic_url}
+                    content={comment.content}
+                    created_at={comment.created_at}
+                    setInput={setInputInline}
+                />
+            );
+        });
 
     return (
         <div className="post">
@@ -65,7 +79,13 @@ function Post({
                 <MeatballMenu
                     replier_user_id={replier_user_id}
                     user_id={user_id}
+                    post_id={id}
                     username={username}
+                    setShowInputModal={setShowInputModal}
+                    textAreaValue={textAreaValue}
+                    setTextAreaValue={setTextAreaValue}
+                    content={content}
+                    setInputModalType={setInputModalType}
                 />
             </div>
             <InView
@@ -116,6 +136,8 @@ function Post({
                         profile_pic_url={replier_profile_pic_url}
                         setCommentCount={setCommentCount}
                         setLatestComments={setLatestComments}
+                        input={inputInline}
+                        setInput={setInputInline}
                     />
                 </div>
             </div>

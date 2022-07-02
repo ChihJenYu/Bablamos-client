@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "semantic-ui-react";
-function LikeAction({ hasLiked, setHasLiked, edge, likeCount, setLikeCount }) {
+function LikeAction({
+    hasLiked,
+    setHasLiked,
+    edge,
+    likeCount,
+    setLikeCount,
+    type,
+}) {
     const onLikeIconClick = () => {
         if (hasLiked) {
             fetch("http://localhost:3000/api/user/like", {
@@ -27,13 +34,17 @@ function LikeAction({ hasLiked, setHasLiked, edge, likeCount, setLikeCount }) {
     };
 
     return (
-        <React.Fragment>
+        <>
             <Icon
                 className={hasLiked ? "heart red" : "heart outline"}
                 onClick={onLikeIconClick}
             />
-            {likeCount}
-        </React.Fragment>
+            {type !== "comment"
+                ? likeCount
+                : likeCount === 0
+                ? null
+                : likeCount}
+        </>
     );
 }
 

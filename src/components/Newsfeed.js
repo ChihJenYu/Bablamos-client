@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import InputModal from "./InputModal";
-import TagSelectionModal from "./TagSelectionModal";
 import InputModalPrompt from "./InputModalPrompt";
 import Post from "./Post";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -11,6 +10,7 @@ function Newsfeed({
     user_id,
     profile_pic_url,
     posts,
+    setPosts,
     fetchPosts,
     hasReachedEnd,
     endMessage,
@@ -21,6 +21,11 @@ function Newsfeed({
     const [showInputModal, setShowInputModal] = useState(false);
     const [seenPosts, setSeenPosts] = useState([]);
     const [seenFreshPosts, setSeenFreshPosts] = useState([]);
+    const [textAreaValue, setTextAreaValue] = useState("");
+    const [inputModalType, setInputModalType] = useState({
+        heading: "Create Post",
+        post_id: null,
+    });
 
     useEffect(() => {
         const readPosts = () => {
@@ -98,6 +103,11 @@ function Newsfeed({
                 clientSocket={clientSocket}
                 setClientSocket={setClientSocket}
                 type={type}
+                setShowInputModal={setShowInputModal}
+                textAreaValue={textAreaValue}
+                setTextAreaValue={setTextAreaValue}
+                setInputModalType={setInputModalType}
+                // setPosts={setPosts}
             />
         );
     });
@@ -107,17 +117,19 @@ function Newsfeed({
             {type !== "detail" ? (
                 <>
                     <InputModalPrompt setVisible={setShowInputModal} />
-                    {showInputModal ? (
-                        <InputModal
-                            visible={showInputModal}
-                            setVisible={setShowInputModal}
-                            clientSocket={clientSocket}
-                            setClientSocket={setClientSocket}
-                        />
-                    ) : null}
                 </>
             ) : null}
-
+            {showInputModal ? (
+                <InputModal
+                    inputModalType={inputModalType}
+                    setInputModalType={setInputModalType}
+                    visible={showInputModal}
+                    setVisible={setShowInputModal}
+                    textAreaValue={textAreaValue}
+                    setTextAreaValue={setTextAreaValue}
+                    setPosts={setPosts}
+                />
+            ) : null}
             <InfiniteScroll
                 dataLength={posts.length}
                 next={fetchPosts}

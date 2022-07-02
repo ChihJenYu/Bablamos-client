@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import MultipleSearchSelection from "./MultipleSearchSelection";
 import "../css/input-modal.css";
 
-const InputModal = ({ visible, setVisible, clientSocket, setClientSocket }) => {
-    const [textAreaValue, setTextAreaValue] = useState("");
+const InputModal = ({
+    inputModalType,
+    setInputModalType,
+    visible,
+    setVisible,
+    textAreaValue,
+    setTextAreaValue,
+    setPosts,
+}) => {
     const [atPreview, setAtPreview] = useState(false);
 
     const fieldRef = useRef();
@@ -39,6 +45,9 @@ const InputModal = ({ visible, setVisible, clientSocket, setClientSocket }) => {
     };
 
     const onPostSubmit = async () => {
+        if (textAreaValue === "") {
+            return;
+        }
         const tags = Array.from(
             document.querySelectorAll(".multiple.selection.search a.ui.label")
         );
@@ -49,20 +58,73 @@ const InputModal = ({ visible, setVisible, clientSocket, setClientSocket }) => {
             };
         });
 
-        await fetch("http://localhost:3000/api/post", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: window.localStorage.getItem("auth"),
-            },
-            body: JSON.stringify({
-                content: textAreaValue,
-                audience_type_id: 1,
-                tags: tagIds,
-            }),
-        });
+        if (inputModalType.heading === "Create Post") {
+            await fetch("http://localhost:3000/api/post", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: window.localStorage.getItem("auth"),
+                },
+                body: JSON.stringify({
+                    content: textAreaValue,
+                    audience_type_id: 1,
+                    tags: tagIds,
+                }),
+            });
+            setVisible(false);
+        } else if (inputModalType.heading === "Edit Post") {
+            await fetch(
+                `http://localhost:3000/api/post?post-id=${inputModalType.post_id}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: window.localStorage.getItem("auth"),
+                    },
+                    body: JSON.stringify({
+                        content: textAreaValue,
+                        audience_type_id: 1,
+                        tags: tagIds,
+                    }),
+                }
+            );
+            setPosts((prev) =>
+                prev.map((post) => {
+                    if (post.id === inputModalType.post_id) {
+                        return { ...post, content: textAreaValue };
+                    }
+                    return post;
+                })
+            );
+            setVisible(false);
+        }
+
         // inform user
     };
+
+    const onPostDelete = async () => {
+        await fetch(
+            `http://localhost:3000/api/post?post-id=${inputModalType.post_id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: window.localStorage.getItem("auth"),
+                },
+            }
+        );
+        setPosts((prev) =>
+            prev.filter((post) => post.id !== inputModalType.post_id)
+        );
+        setVisible(false);
+    };
+
+    useEffect(() => {
+        return () => {
+            setTextAreaValue("");
+            setInputModalType({ heading: "Create Post" });
+        };
+    }, []);
 
     return (
         <div
@@ -70,61 +132,89 @@ const InputModal = ({ visible, setVisible, clientSocket, setClientSocket }) => {
             style={{ display: "flex !important", alignItems: "center" }}
         >
             <div
-                className="ui standard test modal scrolling transition visible active input-modal"
+                className={`ui standard test modal scrolling transition visible active input-modal ${
+                    inputModalType.heading === "Delete Post" ? "delete" : ""
+                }`}
                 style={{ display: "block !important" }}
             >
-                <i
-                    className="large x icon close-input"
-                    onClick={() => {
-                        setVisible(!visible);
-                    }}
-                />
-                <div className="ui large header">Create Post</div>
+                <div className="icon-wrap">
+                    <i
+                        className="x icon close-input"
+                        onClick={() => {
+                            setVisible(!visible);
+                        }}
+                    />
+                </div>
 
-                <form className="ui form">
-                    <div ref={fieldRef} className="field">
-                        <div className="ui secondary pointing menu">
-                            <a
-                                className={`${atPreview ? "" : "active"} item`}
-                                onClick={() => {
-                                    setAtPreview(false);
+                <div className="ui large header">{inputModalType.heading}</div>
+
+                {inputModalType.heading !== "Delete Post" ? (
+                    <form className="ui form">
+                        <div ref={fieldRef} className="field">
+                            <div className="ui secondary pointing menu">
+                                <a
+                                    className={`${
+                                        atPreview ? "" : "active"
+                                    } item`}
+                                    onClick={() => {
+                                        setAtPreview(false);
+                                    }}
+                                >
+                                    Edit
+                                </a>
+                                <a
+                                    className={`${
+                                        atPreview ? "active" : ""
+                                    } item`}
+                                    onClick={() => {
+                                        setAtPreview(true);
+                                    }}
+                                >
+                                    Preview
+                                </a>
+                            </div>
+                            <div className="user-input-segment">
+                                {renderFormContent()}
+                            </div>
+                        </div>
+
+                        <div className="post-prompt">
+                            <button
+                                className="ui primary button"
+                                onClick={async (e) => {
+                                    e.preventDefault();
+                                    await onPostSubmit();
                                 }}
                             >
-                                Edit
-                            </a>
-                            <a
-                                className={`${atPreview ? "active" : ""} item`}
+                                Post
+                            </button>
+                        </div>
+                    </form>
+                ) : (
+                    <>
+                        <div className="content">
+                            <p>Are you sure you want to delete this post?</p>
+                        </div>
+                        <div className="actions">
+                            <div
+                                className="ui button"
                                 onClick={() => {
-                                    setAtPreview(true);
+                                    setVisible(false);
                                 }}
                             >
-                                Preview
-                            </a>
+                                No
+                            </div>
+                            <div
+                                className="ui red button"
+                                onClick={() => {
+                                    onPostDelete();
+                                }}
+                            >
+                                Yes
+                            </div>
                         </div>
-                        <div className="user-input-segment">
-                            {/* <MultipleSearchSelection
-                                dropdownOptions={dropdownOptions}
-                                setDropdownOptions={setDropdownOptions}
-                                selectedOptions={selectedOptions}
-                                setSelectedOptions={setSelectedOptions}
-                                fetchDropdownOptions={fetchDropdownOptions}
-                            /> */}
-                            {renderFormContent()}
-                        </div>
-                    </div>
-
-                    <div className="post-prompt">
-                        <button
-                            className="ui primary button"
-                            onClick={async (e) => {
-                                e.preventDefault();
-                                await onPostSubmit();
-                            }}
-                        >
-                            Post
-                        </button>
-                    </div>
-                </form>
+                    </>
+                )}
             </div>
         </div>
     );

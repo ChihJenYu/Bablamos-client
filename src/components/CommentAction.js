@@ -6,7 +6,9 @@ function CommentAction({ commentCount }) {
 
     const onCommentIconClick = () => {
         commentRef.current.parentElement.parentElement.nextElementSibling
-            .querySelector(".input-inline .ui.input input")
+            .querySelector(
+                ".input-inline .content .single-line_mentions__control__hegso input"
+            )
             .focus();
     };
 
