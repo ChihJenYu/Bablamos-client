@@ -26,7 +26,7 @@ export const getProfilePosts = async (user_in_question, paging, token) => {
 
 export const getPostDetail = async (post_id, token) => {
     const res = await fetch(
-        `${process.envREACT_APP_HOST}/post?post-id=${post_id}`,
+        `${process.env.REACT_APP_HOST}/post?post-id=${post_id}`,
         {
             headers: {
                 Authorization: `Bearer ${token}`,

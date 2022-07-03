@@ -13,7 +13,7 @@ const App = () => {
         user_id: null,
     });
     useEffect(() => {
-        const clientSocket = io("http://localhost:3003");
+        const clientSocket = io(process.env.REACT_APP_WS_HOST);
         setClientSocket({
             socket: clientSocket,
             user_id: null,
@@ -22,6 +22,7 @@ const App = () => {
 
     useEffect(() => {
         if (clientSocket.user_id && clientSocket.socket) {
+            console.log(clientSocket);
             clientSocket.socket.emit("login", {
                 user_id: clientSocket.user_id,
             });
