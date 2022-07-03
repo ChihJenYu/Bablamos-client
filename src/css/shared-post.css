@@ -1,0 +1,25 @@
+.shared-post-preview {
+    /* width: 80%; */
+    margin: 0 auto;
+    padding: 1em !important;
+    margin-top: 1.1em !important;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.modal .shared-post-preview {
+    width: calc(100% - 2.22em);
+}
+
+.shared-post-preview::-webkit-scrollbar {
+    display: none
+}
+
+.shared-post-preview .label img {
+    width: 2.5em !important;
+    height: 2.5em !important;
+}
+
+.shared-post-preview .ui.feed .event .label+.content {
+    margin-left: 0.8em !important;
+}

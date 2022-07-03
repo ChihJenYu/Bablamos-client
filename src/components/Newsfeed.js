@@ -84,6 +84,7 @@ function Newsfeed({
                 username={post.username}
                 profile_pic_url={post.profile_pic_url}
                 shared_post_id={post.shared_post_id}
+                shared_post_data={post.shared_post_data}
                 created_at={post.created_at}
                 content={post.content}
                 tags={post.tags}

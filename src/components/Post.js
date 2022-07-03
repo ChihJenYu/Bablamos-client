@@ -8,12 +8,14 @@ import InputInline from "./InputInline";
 import LikeAction from "./LikeAction";
 import CommentAction from "./CommentAction";
 import MeatballMenu from "./MeatballMenu";
+import SharedPost from "./SharedPost";
 function Post({
     id,
     user_id,
     username,
     profile_pic_url,
     shared_post_id,
+    shared_post_data,
     created_at,
     content,
     tags,
@@ -39,6 +41,28 @@ function Post({
     const [latestComments, setLatestComments] = useState(latest_comments);
     const [inputInline, setInputInline] = useState("");
 
+    const onShareClick = () => {
+        const inputModal = {
+            heading: "Share Post",
+            post_id: shared_post_id || id,
+        };
+        if (shared_post_data) {
+            inputModal.user_id = shared_post_data.user_id;
+            inputModal.username = shared_post_data.username;
+            inputModal.profile_pic_url = shared_post_data.profile_pic_url;
+            inputModal.created_at = shared_post_data.created_at;
+            inputModal.content = shared_post_data.content;
+        } else {
+            inputModal.user_id = user_id;
+            inputModal.username = username;
+            inputModal.profile_pic_url = profile_pic_url;
+            inputModal.created_at = created_at;
+            inputModal.content = content;
+        }
+        setInputModalType(inputModal);
+        setShowInputModal(true);
+    };
+
     const renderedTags = tags.map((tag) => {
         return <div key={tag.id}>#{tag.tag_name}</div>;
     });
@@ -46,10 +70,6 @@ function Post({
     const renderedComments = latestComments
         .sort((c1, c2) => c1.created_at - c2.created_at)
         .map((comment) => {
-            console.log("From post: ", {
-                id: comment.id,
-                already_liked: comment.already_liked,
-            });
             return (
                 <Comment
                     key={comment.id}
@@ -104,7 +124,16 @@ function Post({
             >
                 <ReactMarkdown>{content}</ReactMarkdown>
             </InView>
-
+            {shared_post_id ? (
+                <SharedPost
+                    id={shared_post_id}
+                    user_id={shared_post_data.user_id}
+                    username={shared_post_data.username}
+                    profile_pic_url={shared_post_data.profile_pic_url}
+                    created_at={shared_post_data.created_at}
+                    content={shared_post_data.content}
+                />
+            ) : null}
             <div className="tags">{renderedTags}</div>
             <div className="popularity-cta">
                 <div className="like cta">
@@ -124,7 +153,7 @@ function Post({
                     />
                 </div>
                 <div className="share cta">
-                    <i className="share icon" />
+                    <i className="share icon" onClick={onShareClick} />
                     {share_count}
                 </div>
             </div>

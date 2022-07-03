@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
+import SharedPost from "./SharedPost";
 import "../css/input-modal.css";
 
 const InputModal = ({
@@ -14,6 +15,7 @@ const InputModal = ({
     const [atPreview, setAtPreview] = useState(false);
 
     const fieldRef = useRef();
+    const textAreaRef = useRef();
 
     const renderFormContent = () => {
         if (atPreview) {
@@ -27,21 +29,23 @@ const InputModal = ({
             <textarea
                 placeholder="What's on your mind?"
                 id="post-input-textarea"
+                ref={textAreaRef}
                 value={textAreaValue}
                 onChange={onTextAreaChange}
-                onKeyDown={onKeyDown}
+                onInput={() => {
+                    textAreaRef.current.style.height =
+                        textAreaRef.current.scrollHeight + "px";
+                }}
+                onFocus={() => {
+                    textAreaRef.current.style.height =
+                        textAreaRef.current.scrollHeight + "px";
+                }}
             ></textarea>
         );
     };
 
     const onTextAreaChange = (e) => {
         setTextAreaValue(e.target.value);
-    };
-
-    const onKeyDown = (e) => {
-        if (e.key === "Enter") {
-            console.log("do validate");
-        }
     };
 
     const onPostSubmit = async () => {
@@ -58,7 +62,10 @@ const InputModal = ({
             };
         });
 
-        if (inputModalType.heading === "Create Post") {
+        if (
+            inputModalType.heading === "Create Post" ||
+            inputModalType.heading === "Share Post"
+        ) {
             await fetch("http://localhost:3000/api/post", {
                 method: "POST",
                 headers: {
@@ -69,6 +76,7 @@ const InputModal = ({
                     content: textAreaValue,
                     audience_type_id: 1,
                     tags: tagIds,
+                    shared_post_id: inputModalType.post_id,
                 }),
             });
             setVisible(false);
@@ -175,6 +183,18 @@ const InputModal = ({
                             </div>
                             <div className="user-input-segment">
                                 {renderFormContent()}
+                                {inputModalType.heading === "Share Post" ? (
+                                    <SharedPost
+                                        id={inputModalType.post_id}
+                                        user_id={inputModalType.user_id}
+                                        username={inputModalType.username}
+                                        profile_pic_url={
+                                            inputModalType.profile_pic_url
+                                        }
+                                        created_at={inputModalType.created_at}
+                                        content={inputModalType.content}
+                                    />
+                                ) : null}
                             </div>
                         </div>
 

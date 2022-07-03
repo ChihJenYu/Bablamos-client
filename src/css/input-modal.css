@@ -58,6 +58,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 1.43em;
+    overflow: hidden;
 }
 
 .input-modal .ui.secondary.pointing.menu {
@@ -82,15 +83,14 @@
     outline: none;
     resize: none;
     font-family: inherit;
-    height: auto !important;
-    /* padding-left: 0px !important;
-    padding-right: 0px !important;
-    padding-bottom: 0px !important; */
+    height: 50px;
+    min-height: 0em !important;
+    max-height: 100000em !important;
+    overflow: hidden !important;
 }
 
 .markdown-viewport {
     overflow-y: auto;
-    height: 14em;
     padding: 0.8em 1em;
 }
 
@@ -98,3 +98,5 @@
     overflow-y: auto;
     height: 300px !important;
 }
+
+
