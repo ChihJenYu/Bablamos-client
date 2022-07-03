@@ -1,6 +1,5 @@
 import React from "react";
 import "../../css/friend.css";
-import history from "../../history";
 
 function Friend({ status, profile_pic_url, username, type }) {
     return (

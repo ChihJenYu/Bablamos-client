@@ -52,7 +52,7 @@ export const searchUsers = async (kw, token) => {
         },
     });
     const json = await res.json();
-    return json.data;
+    return json;
 };
 
 export const searchFriendSuggestions = (kw, token) => {

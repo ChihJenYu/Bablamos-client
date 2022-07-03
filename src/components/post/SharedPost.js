@@ -10,12 +10,9 @@ function SharedPost({
     created_at,
     content,
 }) {
-    const edgeInfo = useRef();
-
     return (
         <div className="shared-post-preview">
             <EdgeInfo
-                ref={edgeInfo}
                 user_id={user_id}
                 username={username}
                 profile_pic_url={profile_pic_url}

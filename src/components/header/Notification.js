@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import history from "../../history";
-import {readNotification} from "../../apis/notification"
+import { readNotification } from "../../apis/notification";
 
 function Notification({
     notification,
@@ -27,35 +27,27 @@ function Notification({
         if (notification.notification_type_id === 6) {
             return " is now your friend.";
         }
+        if (notification.notification_type_id === 7) {
+            return " shared your post.";
+        }
     };
 
     const notificationRedirect = () => {
-        if (notification.notification_type_id === 1) {
+        if (
+            notification.notification_type_id === 1 ||
+            notification.notification_type_id === 2 ||
+            notification.notification_type_id === 3 ||
+            notification.notification_type_id === 7
+        ) {
             return () => {
                 history.push(`/post/${notification.inv_post_id}`);
             };
         }
-        if (notification.notification_type_id === 2) {
-            return () => {
-                history.push(`/post/${notification.inv_post_id}`);
-            };
-        }
-        if (notification.notification_type_id === 3) {
-            return () => {
-                history.push(`/post/${notification.inv_post_id}`);
-            };
-        }
-        if (notification.notification_type_id === 4) {
-            return () => {
-                history.push(`/profile/${notification.username}`);
-            };
-        }
-        if (notification.notification_type_id === 5) {
-            return () => {
-                history.push(`/profile/${notification.username}`);
-            };
-        }
-        if (notification.notification_type_id === 6) {
+        if (
+            notification.notification_type_id === 4 ||
+            notification.notification_type_id === 5 ||
+            notification.notification_type_id === 6
+        ) {
             return () => {
                 history.push(`/profile/${notification.username}`);
             };
@@ -64,7 +56,10 @@ function Notification({
 
     const onClickNotification = () => {
         if (notification.read_by_user === 0) {
-            readNotification(notification.id, window.localStorage.getItem("auth"))
+            readNotification(
+                notification.id,
+                window.localStorage.getItem("auth")
+            );
             setUnreadNotificationCount((prev) =>
                 [prev[0] - 1] >= 0 ? [prev[0] - 1] : [0]
             );
