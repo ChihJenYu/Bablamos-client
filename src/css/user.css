@@ -17,3 +17,16 @@
     width: 100%;
     height: 100%;
 }
+
+.signin-prompt {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signin {
+    width: 393px !important;
+}
+
+.signin-prompt .ui.primary.button {
+    margin-right: 0 !important;
+}

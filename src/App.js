@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import Homepage from "./components/Homepage";
-import User from "./components/User";
-import UserProfile from "./components/UserProfile";
-import PostDetail from "./components/PostDetail";
+import Homepage from "./components/index/Homepage";
+import User from "./components/user/User";
+import UserProfile from "./components/profile/UserProfile";
+import PostDetail from "./components/index/PostDetail";
 import history from "./history.js";
 import { io } from "socket.io-client";
 
