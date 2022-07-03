@@ -79,6 +79,17 @@ const InputModal = ({
                     shared_post_id: inputModalType.post_id,
                 }),
             });
+            if (inputModalType.heading === "Share Post") {
+                setPosts((prev) =>
+                    prev.map((post) => {
+                        if (post.id === inputModalType.post_id) {
+                            const prevShareCount = post.share_count;
+                            return { ...post, share_count: prevShareCount + 1 };
+                        }
+                        return post;
+                    })
+                );
+            }
             setVisible(false);
         } else if (inputModalType.heading === "Edit Post") {
             await fetch(
@@ -122,7 +133,9 @@ const InputModal = ({
             }
         );
         setPosts((prev) =>
-            prev.filter((post) => post.id !== inputModalType.post_id)
+            // remove deleted post from posts and decrement share_count of 
+            prev
+                .filter((post) => post.id !== inputModalType.post_id)
         );
         setVisible(false);
     };
