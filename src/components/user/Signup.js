@@ -12,10 +12,10 @@ const Signup = ({ onSignInClick }) => {
         formData.append("username", username);
         formData.append("email", email);
         formData.append("password", password);
-        formData.append(
-            "profile-pic",
-            document.querySelector("#profile-pic").files[0]
-        );
+        // formData.append(
+        //     "profile-pic",
+        //     document.querySelector("#profile-pic").files[0]
+        // );
 
         const json = await userSignup(formData);
         window.localStorage.setItem("auth", json.access_token);
@@ -65,10 +65,10 @@ const Signup = ({ onSignInClick }) => {
                     <label>Confirm password</label>
                     <input id="register-reenter-password" type="password" />
                 </div>
-                <div className="field">
+                {/* <div className="field">
                     <label>Upload profile image</label>
                     <input id="profile-pic" type="file" name="profile-pic" />
-                </div>
+                </div> */}
                 <div className="signin-prompt">
                     <button
                         className="ui button"

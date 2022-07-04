@@ -109,6 +109,6 @@ i.large {
     /* width: 200px; */
 }
 
-/* .secondary.menu .left.menu {
-    justify-content: space-between;
-} */
+i.home.icon.large {
+    margin-right: 0px !important;
+}

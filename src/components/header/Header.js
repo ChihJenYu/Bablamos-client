@@ -13,7 +13,6 @@ const Header = ({
     username,
     profile_pic_url,
     clientSocket,
-    setClientSocket,
     profileUser,
     setProfileUser,
 }) => {

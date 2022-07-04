@@ -44,5 +44,6 @@
 }
 
 .ui.comments .comment .comment-like-cta {
-    width: 4.5em;
+    min-width: 2.5em;
+    margin-right: 0.8em;
 }

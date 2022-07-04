@@ -15,7 +15,6 @@ const InputModal = ({
 }) => {
     const [atPreview, setAtPreview] = useState(false);
 
-    const fieldRef = useRef();
     const textAreaRef = useRef();
 
     const renderFormContent = () => {
@@ -155,7 +154,7 @@ const InputModal = ({
 
                 {inputModalType.heading !== "Delete Post" ? (
                     <form className="ui form">
-                        <div ref={fieldRef} className="field">
+                        <div className="field">
                             <div className="ui secondary pointing menu">
                                 <a
                                     className={`${

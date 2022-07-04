@@ -6,9 +6,39 @@
     padding: 0.8em;
     background-color: #fff;
     margin-left: 2.5em;
+    position: relative;
 }
 
 .user-info-menu>h3 {
     margin-block-start: 0;
     margin-block-end: 0.1em;
+}
+
+.info-edit-icon {
+    position: absolute;
+    right: 0.4em;
+    top: 0.4em;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-edit-icon:hover {
+    background-color: #eee;
+}
+
+.info-edit-icon:active {
+    background-color: #ddd;
+}
+
+i.pencil.icon {
+    font-size: 1rem;
+    margin-right: 0em;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -5,13 +5,26 @@ import Newsfeed from "../newsfeed/Newsfeed";
 import "../../css/timeline-tab-content.css";
 import { getProfilePosts } from "../../apis/post";
 
-function TimelineTabContent({ user, profileUser, recentFriends, friendCount }) {
+function TimelineTabContent({
+    showEditPrompt,
+    user,
+    profileUser,
+    recentFriends,
+    friendCount,
+    setEditModalType,
+    editModalOpen,
+    setEditModalOpen,
+}) {
     const [posts, setPosts] = useState([]);
     const [postsPaging, setPostsPaging] = useState(0);
     const [hasReachedEnd, setHasReachedEnd] = useState(false);
 
     const fetchPosts = async () => {
-        const json = await getProfilePosts(profileUser.user_id, postsPaging, window.localStorage.getItem("auth"));
+        const json = await getProfilePosts(
+            profileUser.user_id,
+            postsPaging,
+            window.localStorage.getItem("auth")
+        );
         if (json.data.length === 0) {
             setHasReachedEnd(true);
             return;
@@ -27,7 +40,13 @@ function TimelineTabContent({ user, profileUser, recentFriends, friendCount }) {
     return (
         <>
             <div className="profile-tab-left-menus">
-                <TimelineUserInfo userInfo={profileUser.user_info} />
+                <TimelineUserInfo
+                    showEditPrompt={showEditPrompt}
+                    userInfo={profileUser.user_info}
+                    setEditModalType={setEditModalType}
+                    editModalOpen={editModalOpen}
+                    setEditModalOpen={setEditModalOpen}
+                />
 
                 {recentFriends.length > 0 ? (
                     <TimelineRecentFriends

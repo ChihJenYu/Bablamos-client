@@ -7,8 +7,8 @@ export const userSignin = async (body) => {
         body: JSON.stringify(body),
     });
     const json = await res.json();
-    return json
-}
+    return json;
+};
 
 export const userSignup = async (formData) => {
     const res = await fetch(`${process.env.REACT_APP_HOST}/user/signup`, {
@@ -17,6 +17,20 @@ export const userSignup = async (formData) => {
     });
     const json = await res.json();
     return json;
+};
+
+export const editUserProfile = async (content_type, body, token) => {
+    const headers = new Headers();
+    if (content_type === "json") {
+        headers.append("Content-Type", "application/json");
+    }
+    headers.append("Authorization", `Bearer ${token}`)
+    const res = await fetch(`${process.env.REACT_APP_HOST}/user/info`, {
+        method: "PATCH",
+        headers,
+        body,
+    });
+    return res;
 };
 
 export const getUserInfo = async (token) => {
@@ -132,7 +146,7 @@ export const userLike = async (edge, token) => {
 };
 
 export const userUnlike = async (edge, token) => {
-    await fetch(`${process.env.REACT_APP_HOST}}/user/like`, {
+    await fetch(`${process.env.REACT_APP_HOST}/user/like`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -153,7 +167,7 @@ export const userFollow = async (user_id, token) => {
         }
     );
     return res;
-}
+};
 
 export const userUnfollow = async (user_id, token) => {
     const res = await fetch(
@@ -179,7 +193,7 @@ export const userAcceptFriend = async (user_id, token) => {
         }
     );
     return res;
-}
+};
 
 export const userSendFriend = async (user_id, token) => {
     const res = await fetch(
@@ -194,8 +208,8 @@ export const userSendFriend = async (user_id, token) => {
     return res;
 };
 
-export const userUnfriend = async (user_id,token) => {
-        const res = await fetch(
+export const userUnfriend = async (user_id, token) => {
+    const res = await fetch(
         `${process.env.REACT_APP_HOST}/user/friend?user-id=${user_id}`,
         {
             method: "DELETE",
@@ -205,4 +219,4 @@ export const userUnfriend = async (user_id,token) => {
         }
     );
     return res;
-}
+};

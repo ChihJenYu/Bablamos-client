@@ -4,11 +4,14 @@ import UserProfilePrompts from "./UserProfilePrompts";
 const FRIEND_STATUS = ["self", "accepted", "sent", "received", "stranger"];
 
 function UserProfileFrame({
+    showEditPrompt,
     friend_count,
     activeTab,
     setActiveTab,
     profileUser,
     setProfileUser,
+    setEditModalType,
+    setEditModalOpen,
 }) {
     return (
         <div className="profile-frame-container">
@@ -19,6 +22,24 @@ function UserProfileFrame({
                         alt=""
                         className="profile-img"
                     />
+                    {showEditPrompt ? (
+                        <div className="profile-edit-icon">
+                            <i
+                                onClick={() => {
+                                    setEditModalOpen(true);
+                                    setEditModalType({
+                                        heading: "Edit Profile Photo",
+                                        profile_pic_url:
+                                            profileUser.profile_pic_url,
+                                        cover_pic_url:
+                                            profileUser.cover_pic_url,
+                                    });
+                                }}
+                                className="camera icon"
+                            ></i>
+                        </div>
+                    ) : null}
+
                     <div className="profile-name">
                         <div className="profile-username">
                             {profileUser.username}
@@ -40,13 +61,26 @@ function UserProfileFrame({
                     </div>
                 </div>
                 <img
-                    src={
-                        profileUser.cover_pic_url ||
-                        "https://nas-national-prod.s3.amazonaws.com/styles/hero_image/s3/christopher-michel_3.jpg?itok=xOygEape"
-                    }
+                    src={profileUser.cover_pic_url}
                     alt=""
                     className="profile-cover"
                 />
+                {showEditPrompt ? (
+                    <div className="cover-edit-icon">
+                        <i
+                            onClick={() => {
+                                setEditModalOpen(true);
+                                setEditModalType({
+                                    heading: "Edit Profile Photo",
+                                    profile_pic_url:
+                                        profileUser.profile_pic_url,
+                                    cover_pic_url: profileUser.cover_pic_url,
+                                });
+                            }}
+                            className="camera icon"
+                        ></i>
+                    </div>
+                ) : null}
                 <div className="profile-menu">
                     <a
                         className={`profile-menu-link ${

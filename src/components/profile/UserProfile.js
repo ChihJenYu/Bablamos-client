@@ -4,6 +4,7 @@ import TimelineTabContent from "./TimelineTabContent";
 import FriendsTabContent from "./FriendsTabContent";
 import Header from "../header/Header";
 import { useParams } from "react-router-dom";
+import EditModal from "./EditModal";
 import "../../css/semantic.min.css";
 import "../../css/user-profile.css";
 import { getUserInfo, getProfileUserInfo } from "../../apis/user";
@@ -29,6 +30,13 @@ function UserProfile({ clientSocket, setClientSocket }) {
         profile_pic_url: null,
     });
     const [activeTab, setActiveTab] = useState(TABS[0]);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editModalType, setEditModalType] = useState({
+        heading: null,
+        profile_pic_url: null,
+        cover_pic_url: null,
+    });
+    const [textAreaValue, setTextAreaValue] = useState("");
 
     const fetchUserInfo = async () => {
         const json = await getUserInfo(window.localStorage.getItem("auth"));
@@ -50,6 +58,7 @@ function UserProfile({ clientSocket, setClientSocket }) {
             user_info,
             username,
             profile_pic_url,
+            cover_pic_url,
             friend_count,
             recent_friends,
             friend_status,
@@ -63,6 +72,7 @@ function UserProfile({ clientSocket, setClientSocket }) {
                 user_id,
                 username,
                 profile_pic_url,
+                cover_pic_url,
                 user_info,
                 friend_status,
                 follow_status,
@@ -77,6 +87,7 @@ function UserProfile({ clientSocket, setClientSocket }) {
 
     useEffect(() => {
         fetchProfileUserInfo();
+        setTextAreaValue(profileUser.user_info);
     }, [profileUser]);
 
     return (
@@ -92,27 +103,52 @@ function UserProfile({ clientSocket, setClientSocket }) {
                     setProfileUser={setProfileUser}
                 ></Header>
             ) : null}
-            {profileUser.user_id && clientSocket.user_id ? (
-                <div className="user-profile-page">
-                    <UserProfileFrame
-                        activeTab={activeTab}
-                        setActiveTab={setActiveTab}
-                        friend_count={friendCount}
-                        profileUser={profileUser}
-                        setProfileUser={setProfileUser}
-                    />
-                    {activeTab === "Timeline" ? (
-                        <TimelineTabContent
-                            user={user}
+            {profileUser.user_id && user.user_id && clientSocket.user_id ? (
+                <>
+                    <div className="user-profile-page">
+                        <UserProfileFrame
+                            showEditPrompt={
+                                profileUser.user_id === user.user_id
+                            }
+                            activeTab={activeTab}
+                            setActiveTab={setActiveTab}
+                            friend_count={friendCount}
                             profileUser={profileUser}
-                            recentFriends={recentFriends}
-                            friendCount={friendCount}
+                            setProfileUser={setProfileUser}
+                            editModalOpen={editModalOpen}
+                            setEditModalType={setEditModalType}
+                            setEditModalOpen={setEditModalOpen}
                         />
-                    ) : null}
-                    {activeTab === "Friends" ? (
-                        <FriendsTabContent profileUser={profileUser} />
-                    ) : null}
-                </div>
+                        {editModalOpen ? (
+                            <EditModal
+                                editModalType={editModalType}
+                                setVisible={setEditModalOpen}
+                                textAreaValue={textAreaValue}
+                                setTextAreaValue={setTextAreaValue}
+                                profileUser={profileUser}
+                                setProfileUser={setProfileUser}
+                                setUser={setUser}
+                            />
+                        ) : null}
+                        {activeTab === "Timeline" ? (
+                            <TimelineTabContent
+                                showEditPrompt={
+                                    profileUser.user_id === user.user_id
+                                }
+                                user={user}
+                                profileUser={profileUser}
+                                recentFriends={recentFriends}
+                                friendCount={friendCount}
+                                setEditModalType={setEditModalType}
+                                editModalOpen={editModalOpen}
+                                setEditModalOpen={setEditModalOpen}
+                            />
+                        ) : null}
+                        {activeTab === "Friends" ? (
+                            <FriendsTabContent profileUser={profileUser} />
+                        ) : null}
+                    </div>
+                </>
             ) : null}
         </>
     );

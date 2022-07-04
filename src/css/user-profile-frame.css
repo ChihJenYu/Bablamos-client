@@ -114,3 +114,49 @@
     right: 1.33em;
     bottom: 1.8em;
 }
+
+.cover-edit-icon {
+    position: absolute;
+    right: 0.2em;
+    top: 0.2em;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-edit-icon {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ddd;
+    left: 115px;
+    top: 110px;
+}
+
+.profile-edit-icon:hover {
+    background-color: #ccc;
+}
+
+.profile-edit-icon:active {
+    background-color: #bbb;
+}
+
+i.camera.icon {
+    font-size: 1.2rem;
+    margin-right: 0em;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img {
+    outline: 5px solid #fff;
+}
