@@ -32,9 +32,7 @@ function EditModal({
                     <div className="edit-cover-img-segment">
                         <img
                             ref={coverPicRef}
-                            src={
-                                profileUser.cover_pic_url
-                            }
+                            src={profileUser.cover_pic_url}
                             alt=""
                             className="profile-cover"
                         />
@@ -124,26 +122,7 @@ function EditModal({
                 formData,
                 window.localStorage.getItem("auth")
             );
-            const json = await res.json();
-
-            if (json.data.profile_pic_url) {
-                setProfileUser((prev) => ({
-                    ...prev,
-                    profile_pic_url: json.data.profile_pic_url,
-                }));
-                setUser((prev) => ({
-                    ...prev,
-                    profile_pic_url: json.data.profile_pic_url,
-                }));
-            }
-
-            if (json.data.cover_pic_url) {
-                setProfileUser((prev) => ({
-                    ...prev,
-                    cover_pic_url: json.data.cover_pic_url,
-                }));
-            }
-            setVisible(false);
+            window.location.reload();
         }
         if (editModalType.heading === "Edit Info") {
             if (textAreaValue === "") {
