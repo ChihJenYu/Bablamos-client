@@ -20,43 +20,13 @@ function VerticalMenu({ username }) {
                     }}
                 />
                 <Menu.Item
-                    name="Messenger"
-                    active={activeItem === "Messenger"}
+                    name="Profile"
+                    active={activeItem === "Profile"}
                     onClick={(e, { name }) => {
                         handleItemClick(e, { name });
-                        history.push("/messenger");
+                        history.push(`/profile/${username}`);
                     }}
                 />
-                <Dropdown text="Profile" pointing className="link item">
-                    <Dropdown.Menu>
-                        <Dropdown.Header>Go to...</Dropdown.Header>
-                        <Dropdown.Item
-                            onClick={() => {
-                                history.push(`/profile/${username}`);
-                            }}
-                        >
-                            Profile
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                            onClick={() => {
-                                history.push(
-                                    `/profile/${username}/preferences/newsfeed`
-                                );
-                            }}
-                        >
-                            News feed settings
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                            onClick={() => {
-                                history.push(
-                                    `/profile/${username}/preferences/users`
-                                );
-                            }}
-                        >
-                            Users settings
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
             </Menu>
         </div>
     );

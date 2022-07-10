@@ -4,6 +4,7 @@ import Homepage from "./components/index/Homepage";
 import User from "./components/user/User";
 import UserProfile from "./components/profile/UserProfile";
 import PostDetail from "./components/index/PostDetail";
+import Search from "./components/index/Search";
 import history from "./history.js";
 import { io } from "socket.io-client";
 
@@ -49,6 +50,16 @@ const App = () => {
                         exact
                         render={() => (
                             <PostDetail
+                                clientSocket={clientSocket}
+                                setClientSocket={setClientSocket}
+                            />
+                        )}
+                    ></Route>
+                    <Route
+                        path="/search"
+                        exact
+                        render={() => (
+                            <Search
                                 clientSocket={clientSocket}
                                 setClientSocket={setClientSocket}
                             />

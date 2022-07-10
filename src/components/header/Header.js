@@ -8,7 +8,6 @@ import {
     getUnreadNotificationCount,
 } from "../../apis/notification";
 import { searchUsers } from "../../apis/user";
-
 const Header = ({
     username,
     profile_pic_url,
@@ -43,7 +42,12 @@ const Header = ({
     };
 
     const fetchUsers = async (kw) => {
-        const json = await searchUsers(kw, window.localStorage.getItem("auth"));
+        const json = await searchUsers(
+            "simple",
+            kw,
+            0,
+            window.localStorage.getItem("auth")
+        );
         return json.data;
     };
 
@@ -113,7 +117,6 @@ const Header = ({
                     <i className="home icon large" />
                 </Link>
             </div>
-
             <div className="right menu">
                 <div className="item">
                     <div className="message-indicator">

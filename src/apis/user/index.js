@@ -24,7 +24,7 @@ export const editUserProfile = async (content_type, body, token) => {
     if (content_type === "json") {
         headers.append("Content-Type", "application/json");
     }
-    headers.append("Authorization", `Bearer ${token}`)
+    headers.append("Authorization", `Bearer ${token}`);
     const res = await fetch(`${process.env.REACT_APP_HOST}/user/info`, {
         method: "PATCH",
         headers,
@@ -59,12 +59,15 @@ export const getProfileUserInfo = async (username, token) => {
     return json;
 };
 
-export const searchUsers = async (kw, token) => {
-    const res = await fetch(`${process.env.REACT_APP_HOST}/user?kw=${kw}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export const searchUsers = async (type, kw, paging, token) => {
+    const res = await fetch(
+        `${process.env.REACT_APP_HOST}/user/search?type=${type}&kw=${kw}&paging=${paging}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
     const json = await res.json();
     return json;
 };

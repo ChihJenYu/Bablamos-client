@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import ReactMarkdown from "react-markdown";
 import EdgeInfo from "./EdgeInfo";
 import "../../css/shared-post.css";

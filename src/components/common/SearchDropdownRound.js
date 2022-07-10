@@ -1,34 +1,42 @@
 import React, { useState, useEffect, useRef } from "react";
 import Friend from "../common/Friend";
+import history from "../../history";
 import "../../css/search-dropdown-round.css";
 
 function SearchDropdownRound({ fetch }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [debouncedTerm, setDebouncedTerm] = useState(searchTerm);
-    // [{ id, username, profile_pic_url }]
+    // [{ index, user_id, username, profile_pic_url, post_id, content }]
     const [searchResults, setSearchResults] = useState([]);
     const [searchResultOpen, setSearchResultOpen] = useState(false);
-
+    const [hideDropdownAfterInput, setHideDropdownAfterInput] = useState(false);
     const ref = useRef();
 
-    const fetchSearchResults = async () => {
-        const data = await fetch(debouncedTerm);
+    const fetchSearchResults = async (term) => {
+        const data = await fetch(term);
         setSearchResults(data);
     };
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setDebouncedTerm(searchTerm);
-        }, 500);
+    const onSearch = (term) => {
+        history.push(`/search?kw=${term}`);
+        setSearchResultOpen(false);
+    };
 
-        return () => {
-            clearTimeout(timeout);
-        };
+    useEffect(() => {
+        if (!hideDropdownAfterInput) {
+            const timeout = setTimeout(() => {
+                setDebouncedTerm(searchTerm);
+            }, 500);
+
+            return () => {
+                clearTimeout(timeout);
+            };
+        }
     }, [searchTerm]);
 
     useEffect(() => {
         if (debouncedTerm !== "") {
-            fetchSearchResults();
+            fetchSearchResults(debouncedTerm);
             setSearchResultOpen(true);
             return;
         }
@@ -57,13 +65,54 @@ function SearchDropdownRound({ fetch }) {
     }, []);
 
     const renderSearchResults = () => {
-        return searchResults.map((user) => {
+        if (searchResults.length === 0) {
+            return (
+                <div
+                    className="search-result item"
+                    id="detail-search-prompt"
+                    onClick={() => {
+                        onSearch(debouncedTerm);
+                    }}
+                >
+                    Search {debouncedTerm}
+                    <i className="icon arrow alternate circle right outline" />
+                </div>
+            );
+        }
+        return searchResults.map((result, index) => {
+            if (index === searchResults.length - 1) {
+                return (
+                    <>
+                        <div className="search-result item">
+                            <Friend
+                                key={
+                                    "" + result.user_id ||
+                                    "" + result.post_id + ""
+                                }
+                                profile_pic_url={result.profile_pic_url}
+                                username={result.username}
+                                type="search"
+                            />
+                        </div>
+                        <div
+                            className="search-result item"
+                            id="detail-search-prompt"
+                            onClick={() => {
+                                onSearch(debouncedTerm);
+                            }}
+                        >
+                            Search {debouncedTerm}
+                            <i className="icon arrow alternate circle right outline" />
+                        </div>
+                    </>
+                );
+            }
             return (
                 <div className="search-result item">
                     <Friend
-                        key={user.id}
-                        profile_pic_url={user.profile_pic_url}
-                        username={user.username}
+                        key={"" + result.user_id || "" + result.post_id + ""}
+                        profile_pic_url={result.profile_pic_url}
+                        username={result.username}
                         type="search"
                     />
                 </div>
@@ -80,10 +129,18 @@ function SearchDropdownRound({ fetch }) {
             <input
                 type="text"
                 placeholder="Search Bablamos"
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        setHideDropdownAfterInput(true);
+                        onSearch(searchTerm);
+                    }
+                }}
                 onChange={(e) => {
+                    setHideDropdownAfterInput(false);
                     setSearchTerm(e.target.value);
                 }}
-                className={searchResults.length > 0 ? "round-top" : ""}
+                value={searchTerm}
+                className={searchResultOpen ? "round-top" : ""}
             />
             <i className="search link icon"></i>
             {searchResultOpen ? (

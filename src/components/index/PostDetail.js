@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Header from "../header/Header";
-import VerticalMenu from "../common/VerticalMenu";
 import Newsfeed from "../newsfeed/Newsfeed";
 import { useParams } from "react-router-dom";
 import "../../css/semantic.min.css";
 import { getUserInfo } from "../../apis/user";
 import { getPostDetail } from "../../apis/post";
+import HomepageFrame from "./HomepageFrame";
 
 function PostDetail({ clientSocket, setClientSocket }) {
     const { postId } = useParams();
@@ -41,14 +40,11 @@ function PostDetail({ clientSocket, setClientSocket }) {
 
     return user.user_id && clientSocket.user_id && post.id ? (
         <div>
-            <Header
-                user_id={user.user_id}
-                username={user.username}
-                profile_pic_url={user.profile_pic_url}
+            <HomepageFrame
+                user={user}
                 clientSocket={clientSocket}
                 setClientSocket={setClientSocket}
             />
-            <VerticalMenu username={user.username} />
             <div className="index-news-feed detail">
                 <Newsfeed
                     user_id={user.user_id}

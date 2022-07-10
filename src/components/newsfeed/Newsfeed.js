@@ -91,29 +91,29 @@ function Newsfeed({
                 textAreaValue={textAreaValue}
                 setTextAreaValue={setTextAreaValue}
                 setInputModalType={setInputModalType}
-                // setPosts={setPosts}
             />
         );
     });
 
     return (
         <>
-            {type !== "detail" ? (
+            {type !== "detail" && type != "search" ? (
                 <>
                     <InputModalPrompt setVisible={setShowInputModal} />
+                    {showInputModal ? (
+                        <InputModal
+                            inputModalType={inputModalType}
+                            setInputModalType={setInputModalType}
+                            visible={showInputModal}
+                            setVisible={setShowInputModal}
+                            textAreaValue={textAreaValue}
+                            setTextAreaValue={setTextAreaValue}
+                            setPosts={setPosts}
+                        />
+                    ) : null}
                 </>
             ) : null}
-            {showInputModal ? (
-                <InputModal
-                    inputModalType={inputModalType}
-                    setInputModalType={setInputModalType}
-                    visible={showInputModal}
-                    setVisible={setShowInputModal}
-                    textAreaValue={textAreaValue}
-                    setTextAreaValue={setTextAreaValue}
-                    setPosts={setPosts}
-                />
-            ) : null}
+
             <InfiniteScroll
                 dataLength={posts.length}
                 next={fetchPosts}

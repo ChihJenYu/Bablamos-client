@@ -2,6 +2,7 @@
     position: fixed;
     padding-left: 2.5em;
     padding-top: 1.5em;
+    top: 90px;
 }
 
 .vertical .dropdown.icon {
@@ -13,7 +14,6 @@
     top: 55px !important;
     width: 100%;
 }
-
 
 .left-vertical-menu .vertical.menu .menu.transition .header {
     text-align: left !important;

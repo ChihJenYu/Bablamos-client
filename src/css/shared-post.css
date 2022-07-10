@@ -7,6 +7,16 @@
     border-radius: 8px;
 }
 
+.post-search-view.search-result {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.post-search-view .shared-post-preview {
+    margin: 0 !important;
+    width: 100%
+}
+
 .modal .shared-post-preview {
     width: calc(100% - 2.22em);
 }
@@ -22,4 +32,15 @@
 
 .shared-post-preview .ui.feed .event .label+.content {
     margin-left: 0.8em !important;
+}
+
+.post-preview {
+    text-align: left;
+}
+
+.search-result-category {
+    text-align: left;
+    padding-left: 20px;
+    margin-bottom: 0.3em !important;
+    margin-top: 0.3em !important;
 }

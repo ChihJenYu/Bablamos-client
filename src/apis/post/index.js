@@ -24,6 +24,19 @@ export const getProfilePosts = async (user_in_question, paging, token) => {
     return json;
 };
 
+export const searchPosts = async (kw, paging, token) => {
+    const res = await fetch(
+        `${process.env.REACT_APP_HOST}/post/search?kw=${kw}&paging=${paging}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    const json = await res.json();
+    return json;
+}
+
 export const getPostDetail = async (post_id, token) => {
     const res = await fetch(
         `${process.env.REACT_APP_HOST}/post?post-id=${post_id}`,

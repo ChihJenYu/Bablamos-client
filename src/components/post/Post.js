@@ -114,11 +114,7 @@ function Post({
                 threshold={1}
                 onChange={(inView) => {
                     if (!inView) return;
-                    if (is_new) {
-                        setSeenFreshPosts((prev) => [...prev, id]);
-                    } else {
-                        setSeenPosts((prev) => [...prev, id]);
-                    }
+                    setSeenPosts((prev) => [...prev, id]);
                 }}
                 delay={1000}
             >

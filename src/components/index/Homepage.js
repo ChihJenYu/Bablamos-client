@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import VerticalMenu from "../common/VerticalMenu";
-import Header from "../header/Header";
+import HomepageFrame from "./HomepageFrame";
 import Newsfeed from "../newsfeed/Newsfeed";
 import "../../css/homepage.css";
 import "../../css/semantic.min.css";
-import { getUserInfo } from "../../apis/user";
 import { getIndexPosts } from "../../apis/post";
+import { getUserInfo } from "../../apis/user";
 
 function Homepage({ clientSocket, setClientSocket }) {
     const [posts, setPosts] = useState([]);
@@ -16,16 +15,6 @@ function Homepage({ clientSocket, setClientSocket }) {
         username: null,
         profile_pic_url: null,
     });
-
-    const fetchUserInfo = async () => {
-        const json = await getUserInfo(window.localStorage.getItem("auth"));
-        setUser(json.data);
-        if (clientSocket.user_id !== json.data.user_id) {
-            setClientSocket((prev) => {
-                return { ...prev, user_id: json.data.user_id };
-            });
-        }
-    };
 
     const fetchPosts = async () => {
         const json = await getIndexPosts(
@@ -40,6 +29,16 @@ function Homepage({ clientSocket, setClientSocket }) {
         setPosts((prev) => [...prev, ...json.data]);
     };
 
+    const fetchUserInfo = async () => {
+        const json = await getUserInfo(window.localStorage.getItem("auth"));
+        setUser(json.data);
+        if (clientSocket.user_id !== json.data.user_id) {
+            setClientSocket((prev) => {
+                return { ...prev, user_id: json.data.user_id };
+            });
+        }
+    };
+
     useEffect(() => {
         fetchPosts();
         fetchUserInfo();
@@ -47,14 +46,11 @@ function Homepage({ clientSocket, setClientSocket }) {
 
     return user.user_id && clientSocket.user_id ? (
         <div>
-            <Header
-                user_id={user.user_id}
-                username={user.username}
-                profile_pic_url={user.profile_pic_url}
+            <HomepageFrame
+                user={user}
                 clientSocket={clientSocket}
                 setClientSocket={setClientSocket}
             />
-            <VerticalMenu username={user.username} />
             <div className="index-news-feed">
                 <Newsfeed
                     user_id={user.user_id}
