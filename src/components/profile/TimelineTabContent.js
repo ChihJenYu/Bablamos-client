@@ -14,6 +14,7 @@ function TimelineTabContent({
     setEditModalType,
     editModalOpen,
     setEditModalOpen,
+    setActiveTab
 }) {
     const [posts, setPosts] = useState([]);
     const [postsPaging, setPostsPaging] = useState(0);
@@ -52,6 +53,7 @@ function TimelineTabContent({
                     <TimelineRecentFriends
                         recentFriends={recentFriends}
                         friendCount={friendCount}
+                        setActiveTab={setActiveTab}
                     />
                 ) : null}
             </div>

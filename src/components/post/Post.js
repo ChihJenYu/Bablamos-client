@@ -19,7 +19,6 @@ function Post({
     created_at,
     content,
     tags,
-    is_new,
     like_count,
     comment_count,
     latest_comments,

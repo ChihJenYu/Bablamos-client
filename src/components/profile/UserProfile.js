@@ -142,6 +142,7 @@ function UserProfile({ clientSocket, setClientSocket }) {
                                 setEditModalType={setEditModalType}
                                 editModalOpen={editModalOpen}
                                 setEditModalOpen={setEditModalOpen}
+                                setActiveTab={setActiveTab}
                             />
                         ) : null}
                         {activeTab === "Friends" ? (

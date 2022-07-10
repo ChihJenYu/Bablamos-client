@@ -112,11 +112,11 @@ const Header = ({
                     <SearchDropdownRound fetch={fetchUsers} />
                 </div>
             </div>
-            <div className="item center">
+            {/* <div className="item center">
                 <Link to="/">
                     <i className="home icon large" />
                 </Link>
-            </div>
+            </div> */}
             <div className="right menu">
                 <div className="item">
                     <div className="message-indicator">

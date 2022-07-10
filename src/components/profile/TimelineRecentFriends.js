@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import history from "../../history";
 import "../../css/profile-recent-friends.css";
 
-function TimelineRecentFriends({ recentFriends, friendCount }) {
+function TimelineRecentFriends({ recentFriends, friendCount, setActiveTab }) {
     const renderedRecentFriends = recentFriends.map((friend) => {
         return (
             <div
@@ -29,7 +27,13 @@ function TimelineRecentFriends({ recentFriends, friendCount }) {
                     <h3>Friends</h3>
                     <label>{friendCount} friends</label>
                 </div>
-                <Link to="/">See all friends</Link>
+                <a
+                    onClick={() => {
+                        setActiveTab("Friends");
+                    }}
+                >
+                    See all friends
+                </a>
             </div>
             <div className="recent-friends-grid">{renderedRecentFriends}</div>
         </div>

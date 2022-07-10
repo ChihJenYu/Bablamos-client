@@ -71,7 +71,6 @@ function Newsfeed({
                 created_at={post.created_at}
                 content={post.content}
                 tags={post.tags}
-                is_new={post.is_new}
                 like_count={post.like_count}
                 comment_count={post.comment_count}
                 latest_comments={post.latest_comments}
