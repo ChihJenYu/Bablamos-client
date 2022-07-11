@@ -122,6 +122,10 @@ function EditModal({
                 formData,
                 window.localStorage.getItem("auth")
             );
+            const json = await res.json();
+            if (json.data.access_token) {
+                window.localStorage.setItem("auth", json.data.access_token);
+            }
             window.location.reload();
         }
         if (editModalType.heading === "Edit Info") {

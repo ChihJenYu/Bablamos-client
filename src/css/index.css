@@ -6,7 +6,7 @@ body {
     width: 100%;
 }
 
-.ui.input>input, .ui.menu, h1, h2, h3, h4, h5, .ui.modal>.header, .ui.button {
+.ui.input>input, .ui.menu, h1, h2, h3, h4, h5, .ui.modal>.header, .ui.button, .ui.header {
     font-family: 'Source Sans Pro' !important;
 }
 
