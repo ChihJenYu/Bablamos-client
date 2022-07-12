@@ -42,7 +42,7 @@ const Signup = ({ onSignInClick }) => {
                     <label>Email address</label>
                     <input
                         id="register-email"
-                        type="text"
+                        type="email"
                         placeholder="me@example.com"
                         value={email}
                         onChange={(e) => {

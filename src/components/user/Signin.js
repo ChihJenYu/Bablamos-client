@@ -7,7 +7,7 @@ const Signin = ({ onCreateClick }) => {
     const [password, setPassword] = useState("");
 
     const onSigninClick = async () => {
-        const json = await userSignin({email, password})
+        const json = await userSignin({ email, password });
         window.localStorage.setItem("auth", json.access_token);
         history.push("/");
     };
@@ -21,7 +21,7 @@ const Signin = ({ onCreateClick }) => {
                     <label>Email address</label>
                     <input
                         id="signin-email"
-                        type="text"
+                        type="email"
                         value={email}
                         placeholder="me@example.com"
                         onChange={(e) => {
