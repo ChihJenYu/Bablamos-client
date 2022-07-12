@@ -8,16 +8,21 @@ const Signup = ({ onSignInClick }) => {
 
     const onSignupClick = async (e) => {
         e.preventDefault();
-        let formData = new FormData();
-        formData.append("username", username);
-        formData.append("email", email);
-        formData.append("password", password);
+        // let formData = new FormData();
+        // formData.append("username", username);
+        // formData.append("email", email);
+        // formData.append("password", password);
         // formData.append(
         //     "profile-pic",
         //     document.querySelector("#profile-pic").files[0]
         // );
 
-        const json = await userSignup(formData);
+        // const json = await userSignup(formData);
+        const json = await userSignup({
+            username,
+            email,
+            password,
+        });
         window.localStorage.setItem("auth", json.access_token);
         history.push("/");
     };

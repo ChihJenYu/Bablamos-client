@@ -10,10 +10,13 @@ export const userSignin = async (body) => {
     return json;
 };
 
-export const userSignup = async (formData) => {
+export const userSignup = async (body) => {
     const res = await fetch(`${process.env.REACT_APP_HOST}/user/signup`, {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(body),
+        headers: {
+            "Content-Type": "application/json",
+        },
     });
     const json = await res.json();
     return json;
