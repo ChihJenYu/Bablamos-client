@@ -31,7 +31,7 @@ const App = () => {
     }, [clientSocket]);
 
     return (
-        <div>
+        <>
             <Router history={history}>
                 <Switch>
                     <Route path="/welcome" component={User}></Route>
@@ -77,7 +77,7 @@ const App = () => {
                     ></Route>
                 </Switch>
             </Router>
-        </div>
+        </>
     );
 };
 

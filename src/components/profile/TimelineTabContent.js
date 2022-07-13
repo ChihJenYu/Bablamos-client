@@ -14,7 +14,7 @@ function TimelineTabContent({
     setEditModalType,
     editModalOpen,
     setEditModalOpen,
-    setActiveTab
+    setActiveTab,
 }) {
     const [posts, setPosts] = useState([]);
     const [postsPaging, setPostsPaging] = useState(0);
@@ -61,7 +61,7 @@ function TimelineTabContent({
                 <div className="profile-news-feed">
                     <Newsfeed
                         user_id={user.user_id}
-                        profile_pic_url={profileUser.profile_pic_url}
+                        profile_pic_url={user.profile_pic_url}
                         posts={posts}
                         setPosts={setPosts}
                         fetchPosts={fetchPosts}

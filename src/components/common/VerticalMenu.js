@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import history from "../../history";
 import { Dropdown, Menu } from "semantic-ui-react";
+import { userSignOut } from "../../apis/user";
 import "../../css/vertical-menu.css";
 
 function VerticalMenu({ username }) {
@@ -27,6 +28,16 @@ function VerticalMenu({ username }) {
                         history.push(`/profile/${username}`);
                     }}
                 />
+                <a
+                    className="item"
+                    onClick={async (e) => {
+                        await userSignOut();
+                        window.localStorage.removeItem("auth");
+                        history.push(`/welcome`);
+                    }}
+                >
+                    Log out
+                </a>
             </Menu>
         </div>
     );

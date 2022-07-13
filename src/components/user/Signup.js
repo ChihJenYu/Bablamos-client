@@ -7,30 +7,29 @@ const Signup = ({ onSignInClick }) => {
     const [username, setUsername] = useState("");
 
     const onSignupClick = async (e) => {
+        if (email === "" || password === "" || username === "") {
+            alert("Oops! You missed some required fields.");
+            return;
+        }
         e.preventDefault();
-        // let formData = new FormData();
-        // formData.append("username", username);
-        // formData.append("email", email);
-        // formData.append("password", password);
-        // formData.append(
-        //     "profile-pic",
-        //     document.querySelector("#profile-pic").files[0]
-        // );
-
-        // const json = await userSignup(formData);
-        const json = await userSignup({
+        const res = await userSignup({
             username,
             email,
             password,
         });
+        if (res.status != 200) {
+            alert("Oops! Some fields are invalid.");
+            return;
+        }
+        const json = await res.json();
         window.localStorage.setItem("auth", json.access_token);
         history.push("/");
     };
 
     return (
         <div className="signup">
-            {/* <div className="logo">Bablamos</div> */}
-            <div className="ui large header">Create account</div>
+            <div className="logo welcome">Bablamos</div>
+            <div className="ui large header">Hey there!</div>
             <form className="ui form">
                 <div className="field">
                     <label>User name</label>
@@ -41,6 +40,7 @@ const Signup = ({ onSignInClick }) => {
                         onChange={(e) => {
                             setUsername(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <div className="field">
@@ -53,6 +53,7 @@ const Signup = ({ onSignInClick }) => {
                         onChange={(e) => {
                             setEmail(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <div className="field">
@@ -64,17 +65,25 @@ const Signup = ({ onSignInClick }) => {
                         onChange={(e) => {
                             setPassword(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <div className="field">
                     <label>Confirm password</label>
-                    <input id="register-reenter-password" type="password" />
+                    <input
+                        id="register-reenter-password"
+                        type="password"
+                        required
+                    />
                 </div>
-                {/* <div className="field">
-                    <label>Upload profile image</label>
-                    <input id="profile-pic" type="file" name="profile-pic" />
-                </div> */}
                 <div className="signin-prompt">
+                    <button
+                        type="submit"
+                        className="register-submit ui primary button"
+                        onClick={onSignupClick}
+                    >
+                        Sign up
+                    </button>
                     <button
                         className="ui button"
                         onClick={() => {
@@ -82,12 +91,6 @@ const Signup = ({ onSignInClick }) => {
                         }}
                     >
                         Already have an account?
-                    </button>
-                    <button
-                        className="register-submit ui primary button"
-                        onClick={onSignupClick}
-                    >
-                        Sign up
                     </button>
                 </div>
             </form>

@@ -53,13 +53,14 @@ a.search-result.item:last-of-type {
 }
 
 #detail-search-prompt {
-    /* background-color: #fff !important; */
+    width: 100%;
     color: #1E90FF;
     font-weight: bold;
-    display: flex;
+    display: inline-block;
     align-items: center;
     justify-content: space-between;
     text-align: left;
+    word-wrap: break-word;
 }
 
 #detail-search-prompt:hover {

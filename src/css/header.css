@@ -34,12 +34,6 @@
     color: #00BFFF !important;
 }
 
-.logo {
-    font-family: 'Pacifico', cursive;
-    font-size: 35px;
-    color: #FFF !important;
-}
-
 .ui.menu:not(.vertical) .left.menu, .ui.menu:not(.vertical) .right.menu {
     width: 49%;
     margin-left: 0px !important;

@@ -74,8 +74,10 @@ function SearchDropdownRound({ fetch }) {
                         onSearch(debouncedTerm);
                     }}
                 >
-                    Search {debouncedTerm}
-                    <i className="icon arrow alternate circle right outline" />
+                    Search{" "}
+                    {debouncedTerm.length > 150
+                        ? debouncedTerm.slice(0, 150) + "..."
+                        : debouncedTerm}
                 </div>
             );
         }
@@ -101,8 +103,10 @@ function SearchDropdownRound({ fetch }) {
                                 onSearch(debouncedTerm);
                             }}
                         >
-                            Search {debouncedTerm}
-                            <i className="icon arrow alternate circle right outline" />
+                            Search{" "}
+                            {debouncedTerm.length > 150
+                                ? debouncedTerm.slice(0, 150) + "..."
+                                : debouncedTerm}
                         </div>
                     </>
                 );

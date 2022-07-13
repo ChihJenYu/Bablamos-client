@@ -17,3 +17,15 @@ a {
 .end-message {
     margin-bottom: 1em !important;
 }
+
+.logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 35px;
+    color: #FFF !important;
+}
+
+.welcome.logo {
+    color: #00BFFF !important;
+    font-size: 40px;
+    text-align: center;
+}

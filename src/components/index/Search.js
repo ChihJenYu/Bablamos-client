@@ -123,18 +123,19 @@ function Search({ clientSocket, setClientSocket }) {
         });
     };
 
+    const searchTabsStyle = {
+        marginTop:
+            "" +
+            (searchControlRef.current
+                ? 18 + searchControlRef.current.offsetHeight
+                : "") +
+            "px",
+    };
+
     const renderSearchTabs = () => {
         if (atPosts) {
             return (
-                <div
-                    style={{
-                        marginTop:
-                            "" +
-                            (18 + searchControlRef.current.offsetHeight) +
-                            "px",
-                    }}
-                    className="index-news-feed search"
-                >
+                <div style={searchTabsStyle} className="index-news-feed search">
                     <Newsfeed
                         user_id={user.user_id}
                         profile_pic_url={user.profile_pic_url}
@@ -150,7 +151,10 @@ function Search({ clientSocket, setClientSocket }) {
             );
         } else {
             return (
-                <div className="user-search-result">
+                <div
+                    style = { searchTabsStyle }
+                    className="user-search-result"
+                >
                     <div className="users-results">{renderUsers()}</div>
                     {usersHaveReachedEnd ? (
                         <div style={{ marginTop: "8px" }}>{endMessage}</div>
@@ -178,7 +182,10 @@ function Search({ clientSocket, setClientSocket }) {
             />
             <div className="search-menu">
                 <div ref={searchControlRef} className="search-tab-control">
-                    <h3>Showing results for "{kw}" 👇</h3>
+                    <h3>
+                        Showing results for "
+                        {kw.length > 150 ? kw.slice(0, 150) + "..." : kw}" 👇
+                    </h3>
                     <div className="ui secondary pointing menu ">
                         <a
                             className={`${atPosts ? "" : "active"} item`}

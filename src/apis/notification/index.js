@@ -7,6 +7,10 @@ export const getNotifications = async (paging, token) => {
             },
         }
     );
+    if (res.status == 400 || res.status == 403) {
+        window.location.href = "/welcome";
+        return;
+    }
     const json = await res.json();
     return json;
 };
@@ -20,6 +24,10 @@ export const getUnreadNotificationCount = async (token) => {
             },
         }
     );
+    if (res.status == 400 || res.status == 403) {
+        window.location.href = "/welcome";
+        return;
+    }
     const json = await res.json();
     return json;
 };

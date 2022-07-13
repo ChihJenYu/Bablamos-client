@@ -111,3 +111,8 @@ a.user {
 .post-preview {
     overflow-wrap: break-word;
 }
+
+.more-comments-prompt {
+    cursor: pointer;
+    font-weight: 600;
+}

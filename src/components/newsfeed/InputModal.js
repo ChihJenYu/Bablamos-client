@@ -36,10 +36,6 @@ const InputModal = ({
                     textAreaRef.current.style.height =
                         textAreaRef.current.scrollHeight + "px";
                 }}
-                onFocus={() => {
-                    textAreaRef.current.style.height =
-                        textAreaRef.current.scrollHeight + "px";
-                }}
             ></textarea>
         );
     };
@@ -52,15 +48,15 @@ const InputModal = ({
         if (textAreaValue === "") {
             return;
         }
-        const tags = Array.from(
-            document.querySelectorAll(".multiple.selection.search a.ui.label")
-        );
-        const tagIds = tags.map((tag) => {
-            return {
-                tag_id: +tag.attributes.value.nodeValue,
-                tag_name: tag.firstChild.data,
-            };
-        });
+        // const tags = Array.from(
+        //     document.querySelectorAll(".multiple.selection.search a.ui.label")
+        // );
+        // const tagIds = tags.map((tag) => {
+        //     return {
+        //         tag_id: +tag.attributes.value.nodeValue,
+        //         tag_name: tag.firstChild.data,
+        //     };
+        // });
 
         if (
             inputModalType.heading === "Create Post" ||
@@ -70,7 +66,7 @@ const InputModal = ({
                 {
                     content: textAreaValue,
                     audience_type_id: 1,
-                    tags: tagIds,
+                    tags: [],
                     shared_post_id: inputModalType.post_id,
                 },
                 window.localStorage.getItem("auth")
@@ -93,7 +89,7 @@ const InputModal = ({
                 {
                     content: textAreaValue,
                     audience_type_id: 1,
-                    tags: tagIds,
+                    tags: [],
                 },
                 window.localStorage.getItem("auth")
             );
@@ -107,8 +103,6 @@ const InputModal = ({
             );
             setVisible(false);
         }
-
-        // inform user
     };
 
     const onPostDelete = async () => {
@@ -127,8 +121,16 @@ const InputModal = ({
         return () => {
             setTextAreaValue("");
             setInputModalType({ heading: "Create Post" });
+            
         };
     }, []);
+
+    useEffect(() => {
+        if (!atPreview) {
+            textAreaRef.current.style.height =
+                textAreaRef.current.scrollHeight + "px";
+        }
+    }, [atPreview]);
 
     return (
         <div

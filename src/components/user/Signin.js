@@ -7,15 +7,24 @@ const Signin = ({ onCreateClick }) => {
     const [password, setPassword] = useState("");
 
     const onSigninClick = async () => {
-        const json = await userSignin({ email, password });
+        if (email === "" || password === "") {
+            alert("Oops! You missed some required fields.");
+            return;
+        }
+        const res = await userSignin({ email, password });
+        if (res.status != 200) {
+            alert("Oops! Wrong email or password.");
+            return;
+        }
+        const json = await res.json();
         window.localStorage.setItem("auth", json.access_token);
         history.push("/");
     };
 
     return (
         <div className="signin">
-            {/* <div className="logo">Bablamos</div> */}
-            <div className="ui large header">Sign in</div>
+            <div className="logo welcome">Bablamos</div>
+            <div className="ui large header">Welcome back!</div>
             <form className="ui form">
                 <div className="field">
                     <label>Email address</label>
@@ -27,6 +36,7 @@ const Signin = ({ onCreateClick }) => {
                         onChange={(e) => {
                             setEmail(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <div className="field">
@@ -38,17 +48,10 @@ const Signin = ({ onCreateClick }) => {
                         onChange={(e) => {
                             setPassword(e.target.value);
                         }}
+                        required
                     />
                 </div>
                 <div className="signin-prompt">
-                    <button
-                        className="ui button"
-                        onClick={() => {
-                            onCreateClick(true);
-                        }}
-                    >
-                        Create account
-                    </button>
                     <button
                         className="ui primary button"
                         onClick={(e) => {
@@ -57,6 +60,14 @@ const Signin = ({ onCreateClick }) => {
                         }}
                     >
                         Sign in
+                    </button>
+                    <button
+                        className="ui button"
+                        onClick={() => {
+                            onCreateClick(true);
+                        }}
+                    >
+                        Don't have an account?
                     </button>
                 </div>
             </form>

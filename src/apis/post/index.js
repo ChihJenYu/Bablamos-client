@@ -7,6 +7,10 @@ export const getIndexPosts = async (paging, token) => {
             },
         }
     );
+    if (res.status == 400 || res.status == 403) {
+        window.location.href = "/welcome";
+        return;
+    }
     const json = await res.json();
     return json;
 };
@@ -20,6 +24,10 @@ export const getProfilePosts = async (user_in_question, paging, token) => {
             },
         }
     );
+    if (res.status == 400 || res.status == 403) {
+        window.location.href = "/welcome";
+        return;
+    }
     const json = await res.json();
     return json;
 };
@@ -33,9 +41,13 @@ export const searchPosts = async (kw, paging, token) => {
             },
         }
     );
+    if (res.status == 400 || res.status == 403) {
+        window.location.href = "/welcome";
+        return;
+    }
     const json = await res.json();
     return json;
-}
+};
 
 export const getPostDetail = async (post_id, token) => {
     const res = await fetch(
@@ -46,6 +58,10 @@ export const getPostDetail = async (post_id, token) => {
             },
         }
     );
+    if (res.status == 400 || res.status == 403) {
+        window.location.href = "/welcome";
+        return;
+    }
     const json = await res.json();
     return json;
 };

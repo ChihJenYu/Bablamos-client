@@ -74,6 +74,7 @@ function Newsfeed({
                 like_count={post.like_count}
                 comment_count={post.comment_count}
                 latest_comments={post.latest_comments}
+                comments_next_paging={post.comments_next_paging}
                 share_count={post.share_count}
                 replier_user_id={user_id}
                 replier_profile_pic_url={profile_pic_url}

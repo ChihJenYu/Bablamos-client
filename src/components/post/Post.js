@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InView } from "react-intersection-observer";
 import ReactMarkdown from "react-markdown";
 import "../../css/post.css";
@@ -9,6 +9,7 @@ import LikeAction from "./LikeAction";
 import CommentAction from "./CommentAction";
 import MeatballMenu from "../common/MeatballMenu";
 import SharedPost from "./SharedPost";
+import { getComments } from "../../apis/comment";
 function Post({
     id,
     user_id,
@@ -22,11 +23,11 @@ function Post({
     like_count,
     comment_count,
     latest_comments,
+    comments_next_paging,
     share_count,
     replier_user_id,
     replier_profile_pic_url,
     already_liked,
-    setSeenFreshPosts,
     setSeenPosts,
     type,
     setShowInputModal,
@@ -39,7 +40,9 @@ function Post({
     const [commentCount, setCommentCount] = useState(comment_count);
     const [latestComments, setLatestComments] = useState(latest_comments);
     const [inputInline, setInputInline] = useState("");
-
+    const [commentsNextPaging, setCommentsNextPaging] = useState(
+        comments_next_paging || null
+    );
     const onShareClick = () => {
         const inputModal = {
             heading: "Share Post",
@@ -62,26 +65,46 @@ function Post({
         setShowInputModal(true);
     };
 
+    const seeMoreComments = async () => {
+        const { data } = await getComments(
+            id,
+            commentsNextPaging,
+            window.localStorage.getItem("auth")
+        );
+        setCommentsNextPaging(data.next_paging);
+        setLatestComments((prev) => [...prev, ...data.comments]);
+    };
+
     const renderedTags = tags.map((tag) => {
         return <div key={tag.id}>#{tag.tag_name}</div>;
     });
 
     const renderedComments = latestComments
         .sort((c1, c2) => c1.created_at - c2.created_at)
-        .map((comment) => {
+        .map((comment, index) => {
             return (
-                <Comment
-                    key={comment.id}
-                    id={comment.id}
-                    user_id={comment.user_id}
-                    username={comment.username}
-                    already_liked={comment.already_liked}
-                    like_count={+comment.like_count}
-                    profile_pic_url={comment.profile_pic_url}
-                    content={comment.content}
-                    created_at={comment.created_at}
-                    setInput={setInputInline}
-                />
+                <>
+                    {commentsNextPaging && index === 0 ? (
+                        <div
+                            onClick={seeMoreComments}
+                            className="more-comments-prompt"
+                        >
+                            See more comments
+                        </div>
+                    ) : null}
+                    <Comment
+                        key={comment.id}
+                        id={comment.id}
+                        user_id={comment.user_id}
+                        username={comment.username}
+                        already_liked={comment.already_liked}
+                        like_count={+comment.like_count}
+                        profile_pic_url={comment.profile_pic_url}
+                        content={comment.content}
+                        created_at={comment.created_at}
+                        setInput={setInputInline}
+                    />
+                </>
             );
         });
 
