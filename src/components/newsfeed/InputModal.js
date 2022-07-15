@@ -121,12 +121,11 @@ const InputModal = ({
         return () => {
             setTextAreaValue("");
             setInputModalType({ heading: "Create Post" });
-            
         };
     }, []);
 
     useEffect(() => {
-        if (!atPreview) {
+        if (!atPreview && textAreaRef.current) {
             textAreaRef.current.style.height =
                 textAreaRef.current.scrollHeight + "px";
         }

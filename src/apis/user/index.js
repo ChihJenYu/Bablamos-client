@@ -38,7 +38,7 @@ export const editUserProfile = async (content_type, body, token) => {
         headers,
         body,
     });
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -54,7 +54,7 @@ export const getUserInfo = async (token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -71,7 +71,7 @@ export const getProfileUserInfo = async (username, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -88,7 +88,7 @@ export const searchUsers = async (type, kw, paging, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -116,7 +116,7 @@ export const getPublicFriends = async (user_in_question, paging, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -133,7 +133,7 @@ export const getFriendRequests = async (user_in_question, paging, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -201,7 +201,7 @@ export const userFollow = async (user_id, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -218,7 +218,7 @@ export const userUnfollow = async (user_id, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -235,7 +235,7 @@ export const userAcceptFriend = async (user_id, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -252,7 +252,7 @@ export const userSendFriend = async (user_id, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -269,7 +269,7 @@ export const userUnfriend = async (user_id, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }

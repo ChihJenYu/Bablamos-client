@@ -116,3 +116,7 @@ a.user {
     cursor: pointer;
     font-weight: 600;
 }
+
+.more-comments-prompt:hover {
+    color: #4183c4;
+}

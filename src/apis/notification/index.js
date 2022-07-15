@@ -7,7 +7,7 @@ export const getNotifications = async (paging, token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }
@@ -24,7 +24,7 @@ export const getUnreadNotificationCount = async (token) => {
             },
         }
     );
-    if (res.status == 400 || res.status == 403) {
+    if (res.status == 401 || res.status == 403) {
         window.location.href = "/welcome";
         return;
     }

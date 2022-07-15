@@ -87,6 +87,9 @@ function UserProfile({ clientSocket, setClientSocket }) {
 
     useEffect(() => {
         fetchProfileUserInfo();
+    }, [urlUsername]);
+
+    useEffect(() => {
         setTextAreaValue(profileUser.user_info);
     }, [profileUser]);
 
