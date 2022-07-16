@@ -32,19 +32,12 @@ function Comment({
 
     return (
         <div className="comment">
-            <a
-                className="avatar"
-                onClick={() => {
-                    history.push(`/profile/${username}`);
-                }}
-            >
+            <a className="avatar" href={`/profile/${username}`}>
                 <img src={profile_pic_url} />
             </a>
             <div className="content">
                 <a
-                    onClick={() => {
-                        history.push(`/profile/${username}`);
-                    }}
+                    href={`/profile/${username}`}
                     className="author"
                 >
                     {username}

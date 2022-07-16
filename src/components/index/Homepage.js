@@ -65,8 +65,6 @@ function Homepage({ clientSocket, setClientSocket }) {
                         </p>
                     }
                     type="index"
-                    clientSocket={clientSocket}
-                    setClientSocket={setClientSocket}
                 />
             </div>
         </div>

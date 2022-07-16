@@ -49,7 +49,7 @@ function Notification({
             notification.notification_type_id === 6
         ) {
             return () => {
-                history.push(`/profile/${notification.username}`);
+                window.location.href = `/profile/${notification.username}`;
             };
         }
     };
@@ -100,9 +100,6 @@ function Notification({
                             {moment.unix(+notification.created_at).fromNow()}
                         </div>
                     </div>
-                    {!notification.read_by_user ? (
-                        <div className="unread-sphere"></div>
-                    ) : null}
                 </div>
             </div>
         </div>

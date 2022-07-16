@@ -8,3 +8,7 @@
 .user-profile-page {
     margin-top: 90px;
 }
+
+.index-news-feed.post-not-found {
+    padding-top: 0 !important;
+}

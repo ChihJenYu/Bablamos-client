@@ -67,7 +67,6 @@ const App = () => {
                     ></Route>
                     <Route
                         path="/"
-                        exact
                         render={() => (
                             <Homepage
                                 clientSocket={clientSocket}

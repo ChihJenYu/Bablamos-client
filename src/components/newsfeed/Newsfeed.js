@@ -15,8 +15,6 @@ function Newsfeed({
     hasReachedEnd,
     endMessage,
     type,
-    clientSocket,
-    setClientSocket,
 }) {
     const [showInputModal, setShowInputModal] = useState(false);
     const [seenPosts, setSeenPosts] = useState([]);
@@ -84,8 +82,6 @@ function Newsfeed({
                 already_liked={post.already_liked}
                 setSeenFreshPosts={setSeenFreshPosts}
                 setSeenPosts={setSeenPosts}
-                clientSocket={clientSocket}
-                setClientSocket={setClientSocket}
                 type={type}
                 setShowInputModal={setShowInputModal}
                 textAreaValue={textAreaValue}
@@ -97,32 +93,37 @@ function Newsfeed({
 
     return (
         <>
-            {type !== "detail" && type != "search" ? (
+            {type === "index" ? (
                 <>
                     <InputModalPrompt setVisible={setShowInputModal} />
-                    {showInputModal ? (
-                        <InputModal
-                            inputModalType={inputModalType}
-                            setInputModalType={setInputModalType}
-                            visible={showInputModal}
-                            setVisible={setShowInputModal}
-                            textAreaValue={textAreaValue}
-                            setTextAreaValue={setTextAreaValue}
-                            setPosts={setPosts}
-                        />
-                    ) : null}
                 </>
             ) : null}
-
-            <InfiniteScroll
-                dataLength={posts.length}
-                next={fetchPosts}
-                hasMore={!hasReachedEnd}
-                loader={<Loader text="Loading" />}
-                endMessage={endMessage}
-            >
-                {renderedPosts}
-            </InfiniteScroll>
+            {showInputModal ? (
+                <InputModal
+                    inputModalType={inputModalType}
+                    setInputModalType={setInputModalType}
+                    visible={showInputModal}
+                    setVisible={setShowInputModal}
+                    textAreaValue={textAreaValue}
+                    setTextAreaValue={setTextAreaValue}
+                    setPosts={setPosts}
+                />
+            ) : null}
+            {posts.length === 0 && hasReachedEnd && type === "index" ? (
+                <p style={{ textAlign: "center", marginBottom: "1em" }}>
+                    <b>Seeing nothing? Go ahead, make some friends! </b>
+                </p>
+            ) : (
+                <InfiniteScroll
+                    dataLength={posts.length}
+                    next={fetchPosts}
+                    hasMore={!hasReachedEnd}
+                    loader={<Loader text="Loading" />}
+                    endMessage={endMessage}
+                >
+                    {renderedPosts}
+                </InfiniteScroll>
+            )}
         </>
     );
 }

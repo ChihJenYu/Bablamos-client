@@ -140,6 +140,7 @@ function Search({ clientSocket, setClientSocket }) {
                         user_id={user.user_id}
                         profile_pic_url={user.profile_pic_url}
                         posts={posts}
+                        setPosts={setPosts}
                         fetchPosts={fetchPosts}
                         hasReachedEnd={postsHaveReachedEnd}
                         endMessage={endMessage}
@@ -151,10 +152,7 @@ function Search({ clientSocket, setClientSocket }) {
             );
         } else {
             return (
-                <div
-                    style = { searchTabsStyle }
-                    className="user-search-result"
-                >
+                <div style={searchTabsStyle} className="user-search-result">
                     <div className="users-results">{renderUsers()}</div>
                     {usersHaveReachedEnd ? (
                         <div style={{ marginTop: "8px" }}>{endMessage}</div>

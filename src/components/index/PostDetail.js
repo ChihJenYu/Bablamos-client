@@ -5,6 +5,7 @@ import "../../css/semantic.min.css";
 import { getUserInfo } from "../../apis/user";
 import { getPostDetail } from "../../apis/post";
 import HomepageFrame from "./HomepageFrame";
+import NotFound from "../common/NotFound";
 
 function PostDetail({ clientSocket, setClientSocket }) {
     const { postId } = useParams();
@@ -13,7 +14,8 @@ function PostDetail({ clientSocket, setClientSocket }) {
         username: null,
         profile_pic_url: null,
     });
-    const [post, setPost] = useState({});
+    const [posts, setPosts] = useState([]);
+    const [postNotFound, setPostNotFound] = useState(false);
 
     const fetchUserInfo = async () => {
         const json = await getUserInfo(window.localStorage.getItem("auth"));
@@ -30,7 +32,10 @@ function PostDetail({ clientSocket, setClientSocket }) {
             postId,
             window.localStorage.getItem("auth")
         );
-        setPost(json.data);
+        if (!json.data) {
+            setPostNotFound(true);
+        }
+        setPosts([json.data]);
     };
 
     useEffect(() => {
@@ -38,27 +43,47 @@ function PostDetail({ clientSocket, setClientSocket }) {
         fetchPostDetail();
     }, [postId]);
 
-    return user.user_id && clientSocket.user_id && post.id ? (
-        <div>
-            <HomepageFrame
-                user={user}
-                clientSocket={clientSocket}
-                setClientSocket={setClientSocket}
-            />
-            <div className="index-news-feed detail">
-                <Newsfeed
-                    user_id={user.user_id}
-                    profile_pic_url={user.profile_pic_url}
-                    posts={[post]}
-                    fetchPosts={fetchPostDetail}
-                    hasReachedEnd={true}
-                    type="detail"
+    if (user.user_id && clientSocket.user_id && posts[0]) {
+        return (
+            <div>
+                <HomepageFrame
+                    user={user}
                     clientSocket={clientSocket}
                     setClientSocket={setClientSocket}
                 />
+                <div className="index-news-feed detail">
+                    <Newsfeed
+                        user_id={user.user_id}
+                        profile_pic_url={user.profile_pic_url}
+                        posts={posts}
+                        setPosts={setPosts}
+                        fetchPosts={fetchPostDetail}
+                        hasReachedEnd={true}
+                        type="detail"
+                        clientSocket={clientSocket}
+                        setClientSocket={setClientSocket}
+                    />
+                </div>
             </div>
-        </div>
-    ) : null;
+        );
+    }
+    if (postNotFound) {
+        return (
+            <div>
+                <HomepageFrame
+                    notFound={true}
+                    user={user}
+                    clientSocket={clientSocket}
+                    setClientSocket={setClientSocket}
+                />
+                <div
+                    className="index-news-feed detail post-not-found"
+                >
+                    <NotFound />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default PostDetail;

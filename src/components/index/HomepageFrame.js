@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import VerticalMenu from "../common/VerticalMenu";
 import Header from "../header/Header";
 
-function HomepageFrame({ user, clientSocket, setClientSocket }) {
+function HomepageFrame({ notFound, user, clientSocket, setClientSocket }) {
     useEffect(() => {}, []);
 
     return (
@@ -14,7 +14,7 @@ function HomepageFrame({ user, clientSocket, setClientSocket }) {
                 clientSocket={clientSocket}
                 setClientSocket={setClientSocket}
             />
-            <VerticalMenu username={user.username} />
+            {notFound ? null : <VerticalMenu username={user.username} />}
         </>
     );
 }

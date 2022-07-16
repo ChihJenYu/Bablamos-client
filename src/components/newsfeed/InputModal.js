@@ -57,7 +57,6 @@ const InputModal = ({
         //         tag_name: tag.firstChild.data,
         //     };
         // });
-
         if (
             inputModalType.heading === "Create Post" ||
             inputModalType.heading === "Share Post"

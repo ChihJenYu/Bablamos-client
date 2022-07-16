@@ -115,8 +115,20 @@ a.user {
 .more-comments-prompt {
     cursor: pointer;
     font-weight: 600;
+    height: 1.4em;
 }
 
 .more-comments-prompt:hover {
     color: #4183c4;
+}
+
+.more-comments-prompt .comment.loader {
+    width: 1.4em;
+    height: 1.4em;
+    margin-left: 1em !important;
+}
+
+.more-comments-prompt .comment.loader:after, .more-comments-prompt .comment.loader:before {
+    width: 1.4em !important;
+    height: 1.4em !important;
 }

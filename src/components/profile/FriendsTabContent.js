@@ -19,6 +19,7 @@ function FriendsTabContent({ profileUser }) {
         return (
             <Friend
                 key={friend.id}
+                id={friend.id}
                 status="accepted"
                 profile_pic_url={friend.profile_pic_url}
                 username={friend.friend_name}
@@ -30,6 +31,7 @@ function FriendsTabContent({ profileUser }) {
         return (
             <Friend
                 key={req.id}
+                id={req.id}
                 status="received"
                 profile_pic_url={req.profile_pic_url}
                 username={req.friend_name}

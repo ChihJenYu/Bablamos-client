@@ -20,18 +20,18 @@ function TimelineTabContent({
     const [postsPaging, setPostsPaging] = useState(0);
     const [hasReachedEnd, setHasReachedEnd] = useState(false);
 
-    const fetchPosts = async () => {
+    const fetchPosts = async (refresh) => {
         const json = await getProfilePosts(
             profileUser.user_id,
-            postsPaging,
+            refresh ? 0 : postsPaging,
             window.localStorage.getItem("auth")
         );
         if (json.data.length === 0) {
             setHasReachedEnd(true);
             return;
         }
-        setPostsPaging(postsPaging + 1);
         setPosts((prev) => [...prev, ...json.data]);
+        setPostsPaging(postsPaging + 1);
     };
 
     useEffect(() => {
@@ -60,6 +60,11 @@ function TimelineTabContent({
             <div className="profile-news-feed-container">
                 <div className="profile-news-feed">
                     <Newsfeed
+                        type={
+                            profileUser.user_id === user.user_id
+                                ? "index"
+                                : "profile"
+                        }
                         user_id={user.user_id}
                         profile_pic_url={user.profile_pic_url}
                         posts={posts}

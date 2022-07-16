@@ -43,6 +43,7 @@ function Post({
     const [commentsNextPaging, setCommentsNextPaging] = useState(
         comments_next_paging || null
     );
+    const [commentLoading, setCommentLoading] = useState(false);
     const onShareClick = () => {
         const inputModal = {
             heading: "Share Post",
@@ -66,18 +67,20 @@ function Post({
     };
 
     const seeMoreComments = async () => {
+        setCommentLoading(true);
         const { data } = await getComments(
             id,
             commentsNextPaging,
             window.localStorage.getItem("auth")
         );
+        setCommentLoading(false);
         setCommentsNextPaging(data.next_paging);
         setLatestComments((prev) => [...prev, ...data.comments]);
     };
 
-    const renderedTags = tags.map((tag) => {
-        return <div key={tag.id}>#{tag.tag_name}</div>;
-    });
+    // const renderedTags = tags.map((tag) => {
+    //     return <div key={tag.id}>#{tag.tag_name}</div>;
+    // });
 
     const renderedComments = latestComments
         .sort((c1, c2) => c1.created_at - c2.created_at)
@@ -90,6 +93,9 @@ function Post({
                             className="more-comments-prompt"
                         >
                             See more comments
+                            {commentLoading ? (
+                                <div class="ui active inline comment loader"></div>
+                            ) : null}
                         </div>
                     ) : null}
                     <Comment
@@ -152,7 +158,7 @@ function Post({
                     content={shared_post_data.content}
                 />
             ) : null}
-            <div className="tags">{renderedTags}</div>
+            {/* <div className="tags">{renderedTags}</div> */}
             <div className="popularity-cta">
                 <div className="like cta">
                     <LikeAction
