@@ -3,8 +3,29 @@ body {
     font-size: 18px;
     background-color: rgb(245, 245, 245);
     font-family: 'Source Sans Pro';
+    width: 100%;
 }
 
-.ui.input>input, .ui.menu, h1, h2, h3, h4, h5, .ui.modal>.header, .ui.button {
+.ui.input>input, .ui.menu, h1, h2, h3, h4, h5, .ui.modal>.header, .ui.button, .ui.header {
     font-family: 'Source Sans Pro' !important;
+}
+
+a {
+    cursor: pointer;
+}
+
+.end-message {
+    margin-bottom: 1em !important;
+}
+
+.logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 35px;
+    color: #FFF !important;
+}
+
+.welcome.logo {
+    color: #00BFFF !important;
+    font-size: 40px;
+    text-align: center;
 }

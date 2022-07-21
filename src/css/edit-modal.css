@@ -1,0 +1,27 @@
+.edit-modal .profile-cover {
+    width: 100%;
+    height: 12em;
+    object-fit: cover;
+}
+
+.edit-modal {
+    position: relative;
+}
+
+.edit-profile-img-segment {
+    position: absolute;
+    left: calc(50% - 80px);
+    top: 10em;
+}
+
+.big.modal .ui.form {
+    height: 25em;
+}
+
+.big.modal .ui.form .field {
+    height: 80% !important;
+}
+
+.big.modal .user-input-segment {
+    height: 25em !important;
+}

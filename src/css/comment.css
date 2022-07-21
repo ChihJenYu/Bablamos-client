@@ -5,9 +5,45 @@
 }
 
 .comment .actions .icon:first-of-type {
-    margin-right: 10px;
+    margin-right: 0.25em;
 }
 
 .comment {
     margin: 0.5em 0;
+}
+
+.comment .content .text {
+    margin-bottom: 0px !important;
+}
+
+.comment .actions {
+    line-height: 1 !important;
+}
+
+.comment.outline.icon {
+    margin: 0 !important;
+}
+
+.mentioned.user {
+    font-weight: bold;
+}
+
+.ui.comments .comment .actions {
+    display: flex;
+    margin-top: 0.5em !important;
+    align-items: center !important;
+}
+
+.ui.comments .comment.outline.icon {
+    padding: 0em !important;
+    line-height: 1;
+}
+
+.ui.comments .comment .comment-like-cta * {
+    font-size: 1.3em !important;
+}
+
+.ui.comments .comment .comment-like-cta {
+    min-width: 2.5em;
+    margin-right: 0.8em;
 }

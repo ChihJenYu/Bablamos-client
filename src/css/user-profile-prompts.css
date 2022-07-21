@@ -1,0 +1,34 @@
+.profile-prompts {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-prompts .ui.button,
+.profile-prompts .ui.floating.dropdown.icon.button {
+    margin-left: 1.33em !important;
+}
+
+.banner-prompts .ui.button {
+    padding: 0.8em;
+    height: 2em !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0px !important;
+}
+
+.profile-prompts .quiet {
+    padding: 0 !important;
+}
+
+.bablamos-theme .ui.button,
+.bablamos-theme.button {
+    background-color: #fff !important;
+    color: rgb(0, 191, 255) !important;
+}
+
+.bablamos-theme .ui.button:hover,
+.bablamos-theme.button:hover {
+    background-color: #eee !important;
+    color: rgb(0, 191, 255) !important;
+}

@@ -9,11 +9,22 @@
     text-align: center;
 }
 
-.icon.close-input {
+.modal.visible.active.input-modal .icon-wrap {
     position: absolute;
     right: 0px;
     top: 0.25rem;
     cursor: pointer;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-wrap .icon.close-input {
+    margin-right: 0px !important;
+    font-size: 1.2rem !important;
 }
 
 .modal.visible.active {
@@ -22,12 +33,32 @@
     height: 30em;
 }
 
+.modal.visible.active.delete {
+    height: 14em;
+    padding-bottom: 0em !important;
+}
+
+.modal.visible.active.delete .content {
+    padding-left: 0.8em !important;
+}
+
+.modal.visible.active.delete .content p {
+    font-size: 20px !important;
+}
+
+.modal.visible.active.delete .actions {
+    background-color: #fff;
+    border-top: none !important;
+    padding-right: 0em !important;
+}
+
 .modal .ui.form {
     height: calc(30em - 51.852px - 30px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 1.43em;
+    overflow: hidden;
 }
 
 .input-modal .ui.secondary.pointing.menu {
@@ -52,15 +83,14 @@
     outline: none;
     resize: none;
     font-family: inherit;
-    height: auto !important;
-    /* padding-left: 0px !important;
-    padding-right: 0px !important;
-    padding-bottom: 0px !important; */
+    height: 50px;
+    min-height: 0em !important;
+    max-height: 100000em !important;
+    overflow: hidden !important;
 }
 
 .markdown-viewport {
     overflow-y: auto;
-    height: 14em;
     padding: 0.8em 1em;
 }
 

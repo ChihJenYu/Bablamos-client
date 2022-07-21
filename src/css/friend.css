@@ -1,0 +1,79 @@
+.friend.item {
+    margin-top: 0.2em !important;
+    margin-bottom: 0.2em !important;
+    /* margin: 0.2em !important; */
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-radius: 4px !important;
+    padding: 0.8em !important;
+    height: 6em !important;
+}
+
+.search-result.item .friend.item {
+    margin-top: 0em !important;
+    margin-bottom: 0em !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 0em !important;
+    height: auto !important;
+    width: 100%;
+}
+
+.friend.item .content {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.friend.item .content::after {
+    content: "" !important;
+    display: none !important;
+}
+
+.friend.item img {
+    border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+.search-result.item .friend.item img {
+    width: 3rem !important;
+    height: 3rem !important;
+}
+
+.search-result.item .content {
+    margin-left: 0.4em !important;
+}
+
+.user-search-result .item.friend {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.friend-request-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.friend-request-prompt .ui.button {
+    padding: 0.5em;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.friend-request-prompt .ui.button:first-of-type {
+    margin-bottom: 0.6em;
+}
+
+.friend-request-prompt .quiet.single {
+    height: 1.5rem;
+    font-size: 16px;
+}
