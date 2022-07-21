@@ -62,7 +62,7 @@ function TimelineTabContent({
                     <Newsfeed
                         type={
                             profileUser.user_id === user.user_id
-                                ? "index"
+                                ? "my-profile"
                                 : "profile"
                         }
                         user_id={user.user_id}

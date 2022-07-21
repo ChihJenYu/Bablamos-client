@@ -93,7 +93,7 @@ function Newsfeed({
 
     return (
         <>
-            {type === "index" ? (
+            {type === "index" || type === "my-profile" ? (
                 <>
                     <InputModalPrompt setVisible={setShowInputModal} />
                 </>

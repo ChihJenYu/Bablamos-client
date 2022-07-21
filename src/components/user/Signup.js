@@ -17,7 +17,7 @@ const Signup = ({ onSignInClick }) => {
             email,
             password,
         });
-        if (res.status != 200) {
+        if (res.status != 201) {
             alert("Oops! Some fields are invalid.");
             return;
         }

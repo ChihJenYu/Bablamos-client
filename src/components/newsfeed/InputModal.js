@@ -48,15 +48,6 @@ const InputModal = ({
         if (textAreaValue === "") {
             return;
         }
-        // const tags = Array.from(
-        //     document.querySelectorAll(".multiple.selection.search a.ui.label")
-        // );
-        // const tagIds = tags.map((tag) => {
-        //     return {
-        //         tag_id: +tag.attributes.value.nodeValue,
-        //         tag_name: tag.firstChild.data,
-        //     };
-        // });
         if (
             inputModalType.heading === "Create Post" ||
             inputModalType.heading === "Share Post"

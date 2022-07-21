@@ -23,7 +23,6 @@ const App = () => {
 
     useEffect(() => {
         if (clientSocket.user_id && clientSocket.socket) {
-            console.log(clientSocket);
             clientSocket.socket.emit("login", {
                 user_id: clientSocket.user_id,
             });
