@@ -113,12 +113,6 @@ const Header = ({
                 </div>
             </div>
             <div className="right menu">
-                <div className="item">
-                    <div className="message-indicator">
-                        <i className="comments icon large" />
-                        <div className="message-count"></div>
-                    </div>
-                </div>
                 <NotificationIndicator
                     fetchNotifications={fetchNotifications}
                     hasReachedEnd={hasReachedEnd}

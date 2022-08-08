@@ -26,7 +26,6 @@ function InputInline({
             const json = await createComment(
                 {
                     content: input,
-                    level: 1,
                     mentioned_users: mentionedUsers.map((user) => user.id),
                 },
                 postId,

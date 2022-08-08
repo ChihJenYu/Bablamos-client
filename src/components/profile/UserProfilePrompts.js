@@ -6,7 +6,7 @@ import {
     userUnfollow,
     userAcceptFriend,
     userSendFriend,
-    userUnfriend
+    userUnfriend,
 } from "../../apis/user";
 
 function UserProfilePrompts({
@@ -185,18 +185,20 @@ function UserProfilePrompts({
     };
 
     const renderMessagePrompt = () => {
-        if (friend_status === "accepted") {
-            return <div className="ui button quiet single">Message</div>;
-        }
+        // if (friend_status === "accepted") {
+        //     return <div className="ui button quiet single">Message</div>;
+        // }
+        return null;
     };
 
     const renderEditProfilePrompt = () => {
         if (friend_status === "self") {
-            return (
-                <div className="profile-prompts">
-                    <div className="ui button quiet single">Edit profile</div>
-                </div>
-            );
+            // return (
+            //     <div className="profile-prompts">
+            //         <div className="ui button quiet single">Edit profile</div>
+            //     </div>
+            // );
+            return null;
         }
     };
 

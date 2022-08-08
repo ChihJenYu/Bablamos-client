@@ -55,8 +55,6 @@ const InputModal = ({
             await createPost(
                 {
                     content: textAreaValue,
-                    audience_type_id: 1,
-                    tags: [],
                     shared_post_id: inputModalType.post_id,
                 },
                 window.localStorage.getItem("auth")
@@ -78,8 +76,6 @@ const InputModal = ({
                 inputModalType.post_id,
                 {
                     content: textAreaValue,
-                    audience_type_id: 1,
-                    tags: [],
                 },
                 window.localStorage.getItem("auth")
             );
